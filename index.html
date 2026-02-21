@@ -198,7 +198,15 @@
       
       // Show main content
       mainContent.classList.remove('hidden');
-      
+
+      // Request Fullscreen
+      const docElm = document.documentElement;
+      if (docElm.requestFullscreen) {
+          docElm.requestFullscreen().catch(err => {
+              console.log(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+      }
+
       // Play Video
       if (video) {
         video.currentTime = 0;
