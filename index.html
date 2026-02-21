@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Mia & Mahesa</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Optional: Add a font library like Google Fonts or FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <!-- Cover Page Section -->
+        <div class="cover-page" id="coverPage">
+            <!-- Background Assets -->
+            <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left">
+            <img src="assets/pohon kanan.png" alt="Decorative Tree Right" class="tree-right">
+
+            <!-- Cover Flowers -->
+            <img src="assets/merah-art-numga-3.webp" class="cover-flower flower-left-top" alt="">
+            <img src="assets/merah-art-numga-3.webp" class="cover-flower flower-right-top" alt="">
+            <img src="assets/merah-art-numga-3.webp" class="cover-flower flower-right-middle" alt="">
+            <img src="assets/merah-art-numga-2.png" class="cover-flower flower-left-bottom" alt="">
+            <img src="assets/merah-art-numga-1.png" class="cover-flower flower-right-bottom" alt="">
+
+            <!-- Central Content -->
+            <div class="content-container">
+                <div class="wedding-title">The Wedding of</div>
+                
+                <div class="couple-names">
+                    Mia
+                    <span>&</span>
+                    Mahesa
+                </div>
+
+                <div class="wedding-date">03 . 04 . 2026</div>
+
+                <div class="guest-section">
+                    <div class="guest-label">Dear,</div>
+                    <div class="guest-name">Nama Tamu</div>
+                </div>
+
+                <button class="open-invitation-btn" onclick="openInvitation()">
+                    <i class="fas fa-envelope-open-text"></i>
+                    Buka Undangan
+                </button>
+            </div>
+        </div>
+
+
+
+        <!-- Floating Action Buttons -->
+        <div class="fab-container">
+            <button class="fab-btn" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+            <button class="fab-btn" title="Menu">
+                <i class="fas fa-th-large"></i>
+            </button>
+            <button class="fab-btn" title="Music" onclick="toggleMusic()">
+                <i id="musicIcon" class="fas fa-music"></i>
+            </button>
+            <button class="fab-btn" title="Auto Scroll">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <div id="mainContent" class="main-content hidden">
+      <!-- Video Entrance -->
+      <div class="video-container" style="position: relative;">
+        <video id="entranceVideo" playsinline>
+          <source src="assets/video-enctrance.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <!-- Delayed Title Overlay -->
+        <div id="titleOverlay" class="title-overlay">
+            <!-- Flower Decorations (appear with overlay) -->
+            <!-- Top-left: branch (numga-3, natural orientation) -->
+            <img src="assets/merah-art-numga-3.webp" class="overlay-flower flower-left-top" alt="">
+            <!-- Top-right: branch (numga-3, flipped horizontally) -->
+            <img src="assets/merah-art-numga-3.webp" class="overlay-flower flower-right-top" alt="">
+            <!-- Right-middle: branch (numga-3, flipped) — at mid-right -->
+            <img src="assets/merah-art-numga-3.webp" class="overlay-flower flower-right-middle" alt="">
+            <!-- Bottom-left: bouquet (numga-2, natural bottom-left orientation) -->
+            <img src="assets/merah-art-numga-2.png" class="overlay-flower flower-left-bottom" alt="">
+            <!-- Bottom-right: bouquet (numga-1, natural bottom-right orientation) -->
+            <img src="assets/merah-art-numga-1.png" class="overlay-flower flower-right-bottom" alt="">
+
+            <div class="overlay-content">
+                <p class="overlay-subtitle">THE WEDDING OF</p>
+                <h1 class="overlay-title">Mia <br> & <br> Mahesa</h1>
+                <p class="overlay-date">03 . 04 . 2026</p>
+                <div class="scroll-indicator">
+                    <div class="mouse-icon"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Quote Section -->
+      <section class="quote-section">
+        <div class="couple-hero-image">
+           <!-- Placeholder for couple photo -->
+           <div class="placeholder-img" style="aspect-ratio: 4/3; background: #ddd;"></div>
+        </div>
+        <p class="quran-quote">
+          "Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikanNya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir."
+        </p>
+        <p class="quote-source">(Qs. Ar. Rum (30) : 21)</p>
+      </section>
+
+      <!-- Bride & Groom -->
+      <section class="profile-section">
+        <h2 class="section-title">Bride & Groom</h2>
+        <p class="intro-text">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami.</p>
+        
+        <div class="profile-card">
+          <div class="profile-img placeholder-circle"></div>
+          <h3 class="profile-name">Habib Yulianto</h3>
+          <p class="parents-name">Putra dari Bapak Anas <br>& Ibu Kholifahs</p>
+        </div>
+
+        <div class="separator-amp">&</div>
+
+        <div class="profile-card">
+          <div class="profile-img placeholder-circle"></div>
+          <h3 class="profile-name">Adiba Putri Syakila</h3>
+          <p class="parents-name">Putri dari Bapak M. Dawam <br>& Ibu Dewi Sudarwati</p>
+        </div>
+      </section>
+
+      <!-- Combined Green Section (Date + Events) -->
+      <section class="green-section">
+        
+        <!-- Save The Date & Countdown -->
+        <h2 class="section-title" style="color: white; margin-top: 2rem;">Save The Date</h2>
+        <p class="date-text" style="color: white;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami :</p>
+        
+        <div class="countdown-container">
+          <div class="countdown-item"><span id="days">00</span><small>Hari</small></div>
+          <div class="countdown-item"><span id="hours">00</span><small>Jam</small></div>
+          <div class="countdown-item"><span id="minutes">00</span><small>Menit</small></div>
+          <div class="countdown-item"><span id="seconds">00</span><small>Detik</small></div>
+        </div>
+
+        <!-- Events Oval Container -->
+        <div class="events-oval">
+            <h2 class="event-title">Akad Nikah</h2>
+            <hr class="event-divider">
+            <p class="event-date">Minggu, 16 Agustus 2026</p>
+            <p class="event-time">Pukul : 08:00 WIB</p>
+            <p class="event-location" style="margin-bottom: 2rem;">Tempat : Kediaman Mempelai Wanita<br>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+            
+            <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Lokasi Acara</a>
+
+            <div style="margin: 3rem 0;">
+                <!-- Decorative divider or spacing -->
+                <i class="fas fa-leaf" style="font-size: 2rem; color: #7FA07B;"></i>
+            </div>
+
+            <h2 class="event-title">Resepsi</h2>
+            <hr class="event-divider">
+            <p class="event-date">Minggu, 16 Agustus 2026</p>
+            <p class="event-time">Pukul : 10:00 WIB - Selesai</p>
+            <p class="event-location" style="margin-bottom: 2rem;">Tempat : Kediaman Mempelai Wanita<br>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+            
+             <!-- Only one location button needed usually if same place, but keeping structure -->
+        </div>
+      </section>
+      
+      <div style="height: 100px;"></div> <!-- Bottom spacer -->
+    </div>
+  </div>
+
+  <!-- Music Audio (Hidden) -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    function openInvitation() {
+      const coverPage = document.getElementById('coverPage');
+      const mainContent = document.getElementById('mainContent');
+      const video = document.getElementById('entranceVideo');
+      const music = document.getElementById('bgMusic');
+      const musicIcon = document.getElementById('musicIcon');
+
+      // Slide up cover
+      coverPage.classList.add('slide-up');
+      
+      // Show main content
+      mainContent.classList.remove('hidden');
+      
+      // Play Video
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(e => console.log("Video autoplay failed", e));
+        // Ensure video doesn't loop (default is no loop)
+        video.onended = () => {
+            // Optional: Action after video ends
+        };
+      }
+
+      // Play Music
+      if (music) {
+        music.play().then(() => {
+          musicIcon.classList.remove('fa-music');
+          musicIcon.classList.add('fa-pause');
+          musicIcon.classList.add('spinning');
+        }).catch(e => console.log("Audio autoplay failed", e));
+      }
+
+      // Show Title Overlay after 8 seconds
+      setTimeout(() => {
+        const overlay = document.getElementById('titleOverlay');
+        if (overlay) {
+            overlay.classList.add('visible');
+        }
+      }, 8000);
+    }
+
+    function toggleMusic() {
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        if (music.paused) {
+            music.play();
+            musicIcon.classList.remove('fa-play');
+            musicIcon.classList.add('fa-pause');
+            musicIcon.classList.add('spinning');
+        } else {
+            music.pause();
+            musicIcon.classList.remove('fa-pause');
+            musicIcon.classList.add('fa-play');
+            musicIcon.classList.remove('spinning');
+        }
+    }
+
+    // Countdown Logic (Target: Aug 16, 2026)
+    const targetDate = new Date("Aug 16, 2026 08:00:00").getTime();
+    
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+            clearInterval(timer);
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+    }, 1000);
+  </script>
+</body>
+</html>
