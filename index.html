@@ -124,7 +124,7 @@
         
         <div class="profile-card">
           <div class="profile-img placeholder-circle"></div>
-          <h3 class="profile-name">Habib Yulianto</h3>
+          <h3 class="profile-name">Mahesa Anugrah Mulyo, S.Kom.</h3>
           <p class="parents-name">Putra dari Bapak Anas <br>& Ibu Kholifahs</p>
         </div>
 
@@ -132,7 +132,7 @@
 
         <div class="profile-card">
           <div class="profile-img placeholder-circle"></div>
-          <h3 class="profile-name">Adiba Putri Syakila</h3>
+          <h3 class="profile-name">Nurul Islamiyah, S.S.</h3>
           <p class="parents-name">Putri dari Bapak M. Dawam <br>& Ibu Dewi Sudarwati</p>
         </div>
       </section>
@@ -195,17 +195,8 @@
 
       // Slide up cover
       coverPage.classList.add('slide-up');
-      
       // Show main content
       mainContent.classList.remove('hidden');
-
-      // Request Fullscreen
-      const docElm = document.documentElement;
-      if (docElm.requestFullscreen) {
-          docElm.requestFullscreen().catch(err => {
-              console.log(`Error attempting to enable fullscreen: ${err.message}`);
-          });
-      }
 
       // Play Video
       if (video) {
@@ -282,6 +273,20 @@
             loader.classList.add('hidden');
         }
     }, 5000);
+
+    // Request fullscreen on the very first touch/click anywhere on the page
+    function enterFullscreen() {
+        const docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen().catch(err => console.log(err));
+        } else if (docElm.webkitRequestFullscreen) { /* Safari */
+            docElm.webkitRequestFullscreen().catch(err => console.log(err));
+        } else if (docElm.msRequestFullscreen) { /* IE11 */
+            docElm.msRequestFullscreen().catch(err => console.log(err));
+        }
+    }
+    document.addEventListener('click', enterFullscreen, { once: true });
+    document.addEventListener('touchstart', enterFullscreen, { once: true });
   </script>
 </body>
 </html>

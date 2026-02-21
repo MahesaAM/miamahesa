@@ -339,6 +339,7 @@ body {
     height: 100vh;
     overflow-y: auto;
     background-image: url("assets/background.png"); /* Consistent background */
+    background-color: #fce9dc;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
