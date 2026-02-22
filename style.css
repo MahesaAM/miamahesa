@@ -569,18 +569,47 @@ section {
 
 /* Profile Section */
 .profile-section {
+    position: relative;
     background-image: url('assets/VINT04-COUPLED-PII.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     /* Ensure padding is sufficient if image needs space */
     padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-bottom: 0; /* Removed gap before the next section */
+    overflow: hidden; /* Ensure flowers don't bleed outside this section */
+}
+
+/* Profile Section Flowers */
+.profile-flower {
+    position: absolute;
+    bottom: -10px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.profile-left-bottom {
+    left: -30px;
+    width: 200px;
+    transform-origin: bottom left;
+    animation: flowerSwayLeft 5s ease-in-out infinite alternate;
+}
+
+.profile-right-bottom {
+    right: -30px;
+    width: 180px;
+    transform-origin: bottom right;
+    animation: flowerSwayRight 5s ease-in-out infinite alternate;
 }
 
 /* Profile Cards */
 .profile-card {
     margin: 2rem 0;
+    position: relative;
+    z-index: 3; /* Keep text above flowers if they overlap */
+}
+.profile-card:last-of-type {
+    margin-bottom: 0; /* Remove space under the bride to pull the next section closer */
 }
 .placeholder-circle {
     width: 150px;
