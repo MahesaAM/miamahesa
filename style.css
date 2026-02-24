@@ -545,7 +545,6 @@ body {
 section {
     padding: 2rem 1.5rem;
     text-align: center;
-    margin-bottom: 2rem;
     position: relative;
 }
 
@@ -1084,7 +1083,7 @@ section {
 
 .dot-tan {
     background-color: #d8c6b8;
-}
+}   
 
 .timeline-content {
     border-radius: 12px;
@@ -1120,4 +1119,134 @@ section {
     font-size: 0.85rem;
     line-height: 1.6;
     margin: 0;
+}
+
+/* --------------------------
+ * Wedding Gift Section
+ * -------------------------- */
+.gift-section {
+    position: relative;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    overflow: hidden; /* Keep background image contained */
+}
+
+/* Background Image Layer */
+.gift-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/background2.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* Inner Container Frame */
+.gift-container {
+    position: relative;
+    z-index: 1; /* Stay above background */
+    background-color: transparent;
+    border: 3px solid #56081c;
+    border-radius: 20px;
+    padding: 2.5rem 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Add a pseudo-element for the inner cream background so the border remains independent if needed, 
+   or just apply it directly to the container depending on design match. */
+.gift-container {
+    background-color: #eedcd3; /* Cream fill inside */
+}
+
+.gift-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 4rem;
+    font-weight: normal;
+    color: #56081c;
+    margin-bottom: 2rem;
+    line-height: 1;
+}
+
+/* Gift Cards */
+.gift-card {
+    background-color: #d8c6b8; /* Tan background */
+    border: 1px solid #56081c; /* Thin maroon border */
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    color: #56081c;
+}
+
+.gift-card:last-child {
+    margin-bottom: 0;
+}
+
+.gift-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.gift-icon {
+    font-size: 1.5rem;
+    color: #3b5998; /* Default for BCA/Bank icon if needed, but styling per image suggests maroon, let's stick to maroon */
+    color: #56081c; 
+}
+
+.gift-label {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.gift-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Align button to bottom right */
+}
+
+.gift-info {
+    flex: 1;
+}
+
+.gift-info-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin: 0 0 0.2rem 0;
+}
+
+.gift-info-desc {
+    font-size: 0.95rem;
+    font-style: italic; /* Match reference */
+    margin: 0;
+}
+
+.gift-action {
+    margin-left: 1rem;
+}
+
+.copy-btn {
+    background-color: #56081c;
+    color: #eedcd3;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-family: var(--font-sans);
+}
+
+.copy-btn i {
+    margin-right: 4px;
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
 }

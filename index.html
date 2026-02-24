@@ -188,14 +188,14 @@
             <div class="event-card">
               <h2 class="event-title">Akad Nikah</h2>
               <div class="event-date-block">
-                <span class="event-day">MINGGU</span>
-                <span class="event-date-large">16</span>
-                <span class="event-month-year">Agustus 2026</span>
+                <span class="event-day">Jumat</span>
+                <span class="event-date-large">03</span>
+                <span class="event-month-year">April 2026</span>
               </div>
               <div class="event-details-block">
-                <p>08.00 WIB - Selesai</p>
+                <p>09.00 WIB - Selesai</p>
                 <p class="bold-text">Kediaman Mempelai Wanita</p>
-                <p>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+                <p>Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
               </div>
               <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
@@ -204,14 +204,15 @@
             <div class="event-card">
               <h2 class="event-title">Resepsi</h2>
               <div class="event-date-block">
-                <span class="event-day">MINGGU</span>
-                <span class="event-date-large">16</span>
-                <span class="event-month-year">Agustus 2026</span>
+                <span class="event-day">Jumat</span>
+                <span class="event-date-large">03</span>
+                <span class="event-month-year">April 2026</span>
               </div>
               <div class="event-details-block">
-                <p>10.00 WIB - Selesai</p>
+                <p><strong>Sesi 1</strong><br>Pukul 13.00 - 15.00 WIB</p>
+                <p><strong>Sesi 2</strong><br>Pukul 18.00 - 21.00 WIB</p>
                 <p class="bold-text">Kediaman Mempelai Wanita</p>
-                <p>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+                <p>Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
               </div>
               <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
@@ -284,7 +285,77 @@
 
         </div>
       </section>
-      
+
+      <!-- Wedding Gift Section -->
+      <section class="gift-section" id="gift">
+        <!-- Background Overlay -->
+        <div class="gift-bg-layer"></div>
+
+        <div class="gift-container">
+          <h2 class="gift-title">Wedding Gift</h2>
+
+          <!-- Gift Card 1: Kado -->
+          <div class="gift-card">
+            <div class="gift-card-header">
+              <i class="fas fa-gift gift-icon"></i>
+              <span class="gift-label">GIFT KADO</span>
+            </div>
+            <div class="gift-card-body">
+              <div class="gift-info">
+                <p class="gift-info-title">Nama Penerima:</p>
+                <p class="gift-info-desc">Rina & Dimas</p>
+                
+                <p class="gift-info-title" style="margin-top: 10px;">Alamat Penerima:</p>
+                <p class="gift-info-desc" id="copyAddress">Jalan Mawar 9 No.28<br>Gayamsari, Semarang</p>
+              </div>
+              <div class="gift-action">
+                <button class="copy-btn" onclick="copyText('copyAddress', this)"><i class="far fa-copy"></i> Salin Alamat</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gift Card 2: BCA Digital -->
+          <div class="gift-card">
+            <div class="gift-card-header">
+              <i class="fas fa-university gift-icon"></i> <!-- Placeholder for BCA logo -->
+              <span class="gift-label">Amplop Digital</span>
+            </div>
+            <div class="gift-card-body">
+              <div class="gift-info">
+                <p class="gift-info-title">Atas Nama</p>
+                <p class="gift-info-desc">Rina & Dimas</p>
+                
+                <p class="gift-info-title" style="margin-top: 10px;">Nomor Rekening</p>
+                <p class="gift-info-desc" id="copyRek1">536928473</p>
+              </div>
+              <div class="gift-action">
+                <button class="copy-btn" onclick="copyText('copyRek1', this)"><i class="far fa-copy"></i> Salin Rekening</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gift Card 3: BCA Digital Duplicate -->
+          <div class="gift-card">
+            <div class="gift-card-header">
+              <i class="fas fa-university gift-icon"></i>
+              <span class="gift-label">Amplop Digital</span>
+            </div>
+            <div class="gift-card-body">
+              <div class="gift-info">
+                <p class="gift-info-title">Atas Nama</p>
+                <p class="gift-info-desc">Rina & Dimas</p>
+                
+                <p class="gift-info-title" style="margin-top: 10px;">Nomor Rekening</p>
+                <p class="gift-info-desc" id="copyRek2">536928473</p>
+              </div>
+              <div class="gift-action">
+                <button class="copy-btn" onclick="copyText('copyRek2', this)"><i class="far fa-copy"></i> Salin Rekening</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
       <div style="height: 100px;"></div> <!-- Bottom spacer -->
     </div>
   </div>
@@ -396,6 +467,34 @@
     }
     document.addEventListener('click', enterFullscreen, { once: true });
     document.addEventListener('touchstart', enterFullscreen, { once: true });
+
+    // Copy to Clipboard Functionality
+    function copyText(elementId, btnElement) {
+        var copyText = document.getElementById(elementId);
+        // Replace <br> with newlines if copying formatted addresses
+        var textToCopy = copyText.innerHTML.replace(/<br\s*[\/]?>/gi, "\n");
+        // Create a temporary textarea to hold the text
+        var tempTextArea = document.createElement("textarea");
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+        
+        // Select and copy
+        tempTextArea.select();
+        tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+        document.execCommand("copy");
+        
+        // Cleanup
+        document.body.removeChild(tempTextArea);
+        
+        // Visual feedback on button instead of alert
+        var originalHtml = btnElement.innerHTML;
+        if (!originalHtml.includes("Berhasil disalin")) {
+            btnElement.innerHTML = '<i class="fas fa-check"></i> Berhasil disalin';
+            setTimeout(function() {
+                btnElement.innerHTML = originalHtml;
+            }, 5000);
+        }
+    }
   </script>
 </body>
 </html>
