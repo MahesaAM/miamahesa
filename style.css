@@ -19,6 +19,11 @@
     src: url('assets/font/edwardianscriptitc.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Recoleta';
+    src: url('assets/font/Recoleta-RegularDEMO.otf') format('opentype');
+}
+
 body,
 html {
   margin: 0;
@@ -157,7 +162,6 @@ body {
 }
 /* Removed cover-page.hidden */
 
-/* Decorative Trees */
 .tree-left,
 .tree-right {
   position: absolute;
@@ -228,6 +232,7 @@ body {
 }
 
 .wedding-title {
+  font-family: 'Recoleta', var(--font-serif);
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
@@ -404,6 +409,7 @@ body {
 }
 
 .overlay-subtitle {
+    font-family: 'Recoleta', var(--font-serif);
     font-size: 0.9rem;
     letter-spacing: 3px;
     margin-bottom: 1rem;
@@ -459,6 +465,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.5s ease-in-out 0.5s;
+    z-index: 2; /* Needs to be above trees (z-index: 1) */
 }
 
 /* Flower Decorations on Cover Page */
@@ -572,174 +579,545 @@ section {
     position: relative;
     background-image: url('assets/VINT04-COUPLED-PII.webp');
     background-size: cover;
-    background-position: center;
+    background-position: top center;
     background-repeat: no-repeat;
-    /* Ensure padding is sufficient if image needs space */
-    padding-top: 4rem;
-    padding-bottom: 0; /* Removed gap before the next section */
+    /* Ensure padding is sufficient so bottom flowers don't overlap with content */
+    padding-top: 6rem;
+    padding-bottom: 0; /* Remove padding to close gap */
     overflow: hidden; /* Ensure flowers don't bleed outside this section */
+}
+
+.profile-inner-container {
+    border: 3px solid #591d1d; /* Maroon color matching image */
+    border-radius: 40px;
+    margin: 0 0.5rem; /* Margin luar dikurangi agar container lebih lebar */
+    padding: 4rem 1.5rem; /* Padding dalam ditambah agar teks tidak mepet */
+    position: relative;
+    z-index: 3;
 }
 
 /* Profile Section Flowers */
 .profile-flower {
     position: absolute;
-    bottom: -10px;
     pointer-events: none;
     z-index: 2;
 }
 
 .profile-left-bottom {
+    bottom: -10px;
     left: -30px;
-    width: 200px;
+    width: 250px;
     transform-origin: bottom left;
     animation: flowerSwayLeft 5s ease-in-out infinite alternate;
 }
 
 .profile-right-bottom {
+    bottom: -10px;
     right: -30px;
-    width: 180px;
+    width: 230px;
     transform-origin: bottom right;
     animation: flowerSwayRight 5s ease-in-out infinite alternate;
 }
 
-/* Profile Cards */
+.profile-left-top {
+    top: -40px;
+    left: -60px;
+    width: 200px;
+    transform-origin: top left;
+    transform: rotate(20deg); 
+}
+
+.profile-right-top {
+    top: -40px;
+    right: -60px;
+    width: 200px;
+    transform-origin: top right;
+    transform: scaleX(-1) rotate(20deg);
+}
+
+.intro-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #591d1d; /* Maroon color based on the design */
+    margin: 1rem auto 3rem auto;
+    width: 85%;
+    font-weight: 500;
+}
+
+/* Profile Cards updated to match image */
 .profile-card {
-    margin: 2rem 0;
+    margin: 4rem 0;
     position: relative;
-    z-index: 3; /* Keep text above flowers if they overlap */
+    z-index: 3;
 }
 .profile-card:last-of-type {
-    margin-bottom: 0; /* Remove space under the bride to pull the next section closer */
+    margin-bottom: 2rem;
 }
-.placeholder-circle {
-    width: 150px;
-    height: 150px;
-    background: #e0e0e0;
-    border-radius: 50%;
-    border: 3px solid white;
-    margin: 0 auto 1rem auto;
-    /* In real implementation, set background-image here */
+
+.profile-img-rect {
+    width: 90%;
+    max-width: 380px;
+    aspect-ratio: 5 / 8; /* Taller element based on user request "panjangkan lagi" */
+    background-color: #e0d8d7; /* Placeholder color */
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto 2rem auto;
+    border-radius: 4px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Slightly deeper shadow */
 }
+
 .profile-name {
-    font-size: 1.8rem;
-    color: #bfa36f;
+    font-size: 1.3rem;
+    color: #591d1d; /* Maroon color matching image */
+    font-family: var(--font-serif);
+    font-weight: bold;
     margin-bottom: 0.5rem;
 }
+
+.parents-name {
+    font-size: 0.9rem;
+    color: #591d1d;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.ig-handle {
+    display: inline-block;
+    background-color: #591d1d; /* Maroon pill */
+    color: #fce9dc; /* Cream text */
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .separator-amp {
-    font-size: 3rem;
-    color: #bfa36f;
-    font-family: var(--font-serif);
+    font-size: 5rem;
+    color: #591d1d;
+    font-family: var(--font-script);
+    margin: 5rem auto;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #591d1d;
+    border-radius: 50%;
+    line-height: 1;
+    background-color: transparent;
 }
 
 /* Countdown Section */
+.countdown-wrapper {
+    background-color: #56081c; /* Dark Maroon based on user request */
+    background-image: url('assets/background.png');
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #eedcd3; /* Cream/gold thin border */
+    border-radius: 30px; /* Rounded corners like the image */
+    margin: -2rem 1rem 0 1rem; /* Negative top margin to pull it up into the profile section */
+    padding: 3rem 1rem;
+    position: relative;
+    z-index: 10; /* Bring above profile section bottom flowers */
+    /* Optional: a subtle shadow */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Inner thin border */
+.countdown-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    border: 1px solid #eedcd3; /* Inner gold line */
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.countdown-title {
+    font-family: var(--font-script);
+    font-size: 3.0rem;
+    color: #eedcd3; /* Cream/gold color */
+    margin-bottom: 2rem;
+    font-weight: normal;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Helps visibility against patterned bg */
+    position: relative;
+    z-index: 2;
+}
+
 .countdown-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 2rem;
+    flex-wrap: nowrap; /* Force 1 line */
+    gap: 8px;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
 }
+
 .countdown-item {
-    background: white;
-    padding: 10px;
+    background: #eedcd3; /* Cream background */
+    padding: 10px 8px;
     border-radius: 8px;
-    min-width: 60px;
-    /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
-    border: 1px solid #7FA07B; /* Match green theme */
+    min-width: 55px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
+
 .countdown-item span {
     display: block;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #7FA07B; /* Green text */
+    color: #56081c; /* Maroon text */
+    line-height: 1;
+    margin-bottom: 3px;
 }
+
 .countdown-item small {
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.75rem;
+    color: #56081c;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.save-date-btn {
+    display: inline-block;
+    background-color: #eedcd3;
+    color: #56081c;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: var(--font-sans);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.save-date-btn:active {
+    transform: scale(0.95);
+}
+
+.save-date-btn i {
+    margin-right: 8px;
 }
 
 /* Green Section */
 .green-section {
     background-color: #631111; /* Sage Green */
-    padding: 2rem 0;
+    padding: 0 0 0 0; /* Removed top padding to close gap */
     text-align: center;
     color: white;
 }
 
-/* Events Oval */
-.events-oval {
-    background-image: url('assets/VINT04-COUPLED-PII.webp');
+/* Events Section Re-design */
+.events-wrapper {
+    position: relative;
+    background-color: #56081c; /* Maroon background like the countdown section */
+    background-image: url('assets/background.png');
+    background-repeat: repeat;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    
-    border-radius: 150px; /* Tall oval shape */
-    border: 4px solid white;
-    
-    width: 75%; /* Reduced from 85% to give more side space */
-    margin: 3rem auto;
-    padding: 4rem 1.5rem;
-    
-    color: #3e2723; /* Dark text inside */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 2rem 1rem;
+    overflow: hidden; /* Keep flowers inside */
+}
+
+.events-flower {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    z-index: 1;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.events-left {
+    left: -80px;
+}
+
+.events-right {
+    right: -80px;
+}
+
+.events-cards-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+}
+
+.event-card {
+    background-color: #eedcd3;
+    border: 1px solid #56081c;
+    border-radius: 40px;
+    padding: 3.5rem 1.5rem;
+    width: 85%;
+    max-width: 400px;
+    text-align: center;
+    color: #56081c;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .event-title {
-    font-size: 2.5rem;
-    font-family: var(--font-serif); /* Or Recoleta if enforced by body, but specifically large here */
-    color: #4a5446; /* Dark Greenish Grey */
-    margin-bottom: 0.5rem;
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 4rem;
+    color: #56081c;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    line-height: 1;
 }
-.event-divider {
-    width: 40%;
-    margin: 1rem auto;
-    border: 0;
-    border-top: 1px solid #aaa;
+
+.event-date-block {
+    margin-bottom: 1.5rem;
+    color: #56081c;
 }
-.event-date, .event-time, .event-location {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+
+.event-day {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
 }
+
+.event-date-large {
+    display: block;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0.5rem 0;
+}
+
+.event-month-year {
+    display: block;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.event-details-block {
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #56081c;
+}
+
+.event-details-block p {
+    margin: 0.3rem 0;
+}
+
+.event-details-block .bold-text {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0.2rem 0;
+}
+
 .location-btn {
     display: inline-block;
-    background: #7FA07B;
-    color: white;
+    background-color: #56081c;
+    color: #eedcd3;
+    text-decoration: none;
     padding: 12px 30px;
     border-radius: 30px;
-    text-decoration: none;
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
-.location-btn:hover {
-    transform: translateY(-2px);
-    background: #6b8c68;
+    font-family: var(--font-sans);
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
-/* Deprecated Old Cards - keeping commented or removed if preferred, but replacing effectively */
-.event-title {
-    font-size: 2rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+.location-btn i {
+    margin-right: 8px;
 }
-.event-divider {
-    width: 50%;
-    margin: 1rem auto;
-    border: 1px solid var(--primary-color);
+
+.location-btn:active {
+    transform: scale(0.95);
 }
-.location-btn {
-    display: inline-block;
-    background: #798e7b; /* Sage green like reference */
-    color: white;
-    padding: 10px 25px;
-    border-radius: 25px;
-    text-decoration: none;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    transition: background 0.3s;
+
+/* --------------------------
+ * Our Gallery Section
+ * -------------------------- */
+.gallery-section {
+    background-color: #56081c; /* Maroon background from reference */
+    color: #eedcd3;
 }
-.location-btn:hover {
-    background: #5a6e5c;
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.gallery-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 4rem;
+    font-weight: normal;
+    color: #eedcd3;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.gallery-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #eedcd3;
+    margin: 0;
+}
+
+.gallery-masonry {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px; /* Constrain width for larger screens just in case */
+    margin: 0 auto;
+}
+
+.gallery-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1; /* Both columns take equal width */
+}
+
+.gallery-item {
+    background-color: #eedcd3; /* Cream placeholder color */
+    width: 100%;
+    border-radius: 2px; /* Very slight rounding to match reference */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Aspect ratios to mimic the masonry layout provided */
+.item-tall {
+    aspect-ratio: 4 / 5; /* Taller rectangle */
+}
+
+.item-short {
+    aspect-ratio: 5 / 4; /* Wider/shorter rectangle */
+}
+
+.item-square {
+    aspect-ratio: 1 / 1; /* Perfect square */
+}
+
+/* --------------------------
+ * Our Story Timeline Section
+ * -------------------------- */
+.story-section {
+    background-color: #eedcd3; /* Cream background */
+    padding: 5rem 1.5rem;
+    color: #56081c;
+}
+
+.story-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.story-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 4rem;
+    font-weight: normal;
+    color: #56081c;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.story-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #56081c;
+    margin: 0;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-left: 30px; /* Space for the line and dots */
+}
+
+.timeline-track {
+    position: absolute;
+    top: 40px;
+    bottom: 20px;
+    left: 4px; /* Center with the dots */
+    width: 1px;
+    background-color: #56081c; /* Track color */
+    z-index: 1;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    z-index: 2;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -35px; /* Align over the center track */
+    top: 40px; /* Adjust based on padding of card */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.dot-maroon {
+    background-color: #56081c;
+    width: 24px;
+    height: 24px;
+    left: -37px;
+    top: 38px;
+}
+
+.dot-tan {
+    background-color: #d8c6b8;
+}
+
+.timeline-content {
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.card-maroon {
+    background-color: #56081c;
+    color: #eedcd3;
+}
+
+.card-tan {
+    background-color: #d8c6b8;
+    color: #56081c;
+}
+
+.timeline-month {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.timeline-heading {
+    font-family: var(--font-sans);
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+    font-weight: 800;
+}
+
+.timeline-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
 }

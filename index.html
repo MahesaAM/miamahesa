@@ -82,6 +82,10 @@
         
         <!-- Delayed Title Overlay -->
         <div id="titleOverlay" class="title-overlay">
+            <!-- Background Trees -->
+            <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left">
+            <img src="assets/pohon kanan.png" alt="Decorative Tree Right" class="tree-right">
+
             <!-- Flower Decorations (appear with overlay) -->
             <!-- Top-left: branch (numga-3, natural orientation) -->
             <img src="assets/merah-art-numga-3.webp" class="overlay-flower flower-left-top" alt="">
@@ -94,7 +98,8 @@
             <!-- Bottom-right: bouquet (numga-1, natural bottom-right orientation) -->
             <img src="assets/merah-art-numga-1.png" class="overlay-flower flower-right-bottom" alt="">
 
-            <div class="overlay-content">
+            <!-- Central Content Oval -->
+            <div class="content-container overlay-content">
                 <p class="overlay-subtitle">THE WEDDING OF</p>
                 <h1 class="overlay-title">Mia <br> & <br> Mahesa</h1>
                 <p class="overlay-date">03 . 04 . 2026</p>
@@ -119,21 +124,34 @@
 
       <!-- Bride & Groom -->
       <section class="profile-section">
-        <h2 class="section-title">Bride & Groom</h2>
-        <p class="intro-text">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami.</p>
-        
-        <div class="profile-card">
-          <div class="profile-img placeholder-circle"></div>
-          <h3 class="profile-name">Mahesa Anugrah Mulyo, S.Kom.</h3>
-          <p class="parents-name">Putra dari Bapak Anas <br>& Ibu Kholifahs</p>
-        </div>
+        <!-- Top Flowers for Profile Section -->
+        <img src="assets/merah-art-numga-3.webp" class="profile-flower profile-left-top" alt="Top Left Branch">
+        <img src="assets/merah-art-numga-3.webp" class="profile-flower profile-right-top" alt="Top Right Branch">
 
-        <div class="separator-amp">&</div>
+        <div class="profile-inner-container">
+          <p class="intro-text">
+            <strong>Assalamu'alaikum Wr. Wb.</strong><br><br>
+            Dengan memohon rahmat dan ridho<br>
+            Allah SWT, kami bermaksud mengundang<br>
+            Bapak/Ibu/Saudara/i untuk menghadiri<br>
+            acara pernikahan kami:
+          </p>
+          
+          <div class="profile-card">
+            <div class="profile-img-rect bg-placeholder"></div>
+            <h3 class="profile-name">Mahesa Anugrah Mulyo, S.Kom.</h3>
+            <p class="parents-name">Putra dari Bapak Mahdum & Ibu Napsiyah</p>
+            <span class="ig-handle">@mahesa.am</span>
+          </div>
 
-        <div class="profile-card">
-          <div class="profile-img placeholder-circle"></div>
-          <h3 class="profile-name">Nurul Islamiyah, S.S.</h3>
-          <p class="parents-name">Putri dari Bapak M. Dawam <br>& Ibu Dewi Sudarwati</p>
+          <div class="separator-amp">&</div>
+
+          <div class="profile-card">
+            <div class="profile-img-rect bg-placeholder"></div>
+            <h3 class="profile-name">Nurul Islamiyah, S.S.</h3>
+            <p class="parents-name">Putri dari Bapak Salimin & Ibu Muzainah</p>
+            <span class="ig-handle">@nurul.is</span>
+          </div>
         </div>
 
         <!-- Bottom Flowers for Profile Section -->
@@ -144,39 +162,126 @@
       <!-- Combined Green Section (Date + Events) -->
       <section class="green-section">
         
-        <!-- Save The Date & Countdown -->
-        <h2 class="section-title" style="color: white; margin-top: 2rem;">Save The Date</h2>
-        <p class="date-text" style="color: white;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami :</p>
-        
-        <div class="countdown-container">
-          <div class="countdown-item"><span id="days">00</span><small>Hari</small></div>
-          <div class="countdown-item"><span id="hours">00</span><small>Jam</small></div>
-          <div class="countdown-item"><span id="minutes">00</span><small>Menit</small></div>
-          <div class="countdown-item"><span id="seconds">00</span><small>Detik</small></div>
+        <!-- Counting the Days -->
+        <div class="countdown-wrapper">
+          <h2 class="countdown-title">Counting the Days</h2>
+          
+          <div class="countdown-container">
+            <div class="countdown-item"><span id="days">00</span><small>Hari</small></div>
+            <div class="countdown-item"><span id="hours">00</span><small>Jam</small></div>
+            <div class="countdown-item"><span id="minutes">00</span><small>Menit</small></div>
+            <div class="countdown-item"><span id="seconds">00</span><small>Detik</small></div>
+          </div>
+
+          <a href="#" class="save-date-btn"><i class="far fa-calendar-alt"></i> Save the Date</a>
         </div>
 
-        <!-- Events Oval Container -->
-        <div class="events-oval">
-            <h2 class="event-title">Akad Nikah</h2>
-            <hr class="event-divider">
-            <p class="event-date">Minggu, 16 Agustus 2026</p>
-            <p class="event-time">Pukul : 08:00 WIB</p>
-            <p class="event-location" style="margin-bottom: 2rem;">Tempat : Kediaman Mempelai Wanita<br>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
-            
-            <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Lokasi Acara</a>
 
-            <div style="margin: 3rem 0;">
-                <!-- Decorative divider or spacing -->
-                <i class="fas fa-leaf" style="font-size: 2rem; color: #7FA07B;"></i>
+        <!-- Events Wrapper (Cards + Background Flowers) -->
+        <div class="events-wrapper">
+          <p class="date-text" style="color: white; margin-top: 2rem;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami :</p>
+          <!-- Side Flowers for Events Section -->
+          <img src="assets/merah-art-numga-2.png" class="events-flower events-left" alt="Left Flower">
+          <img src="assets/merah-art-numga-1.png" class="events-flower events-right" alt="Right Flower">
+          <div class="events-cards-container">
+            <!-- Akad Nikah Card -->
+            <div class="event-card">
+              <h2 class="event-title">Akad Nikah</h2>
+              <div class="event-date-block">
+                <span class="event-day">MINGGU</span>
+                <span class="event-date-large">16</span>
+                <span class="event-month-year">Agustus 2026</span>
+              </div>
+              <div class="event-details-block">
+                <p>08.00 WIB - Selesai</p>
+                <p class="bold-text">Kediaman Mempelai Wanita</p>
+                <p>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+              </div>
+              <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
 
-            <h2 class="event-title">Resepsi</h2>
-            <hr class="event-divider">
-            <p class="event-date">Minggu, 16 Agustus 2026</p>
-            <p class="event-time">Pukul : 10:00 WIB - Selesai</p>
-            <p class="event-location" style="margin-bottom: 2rem;">Tempat : Kediaman Mempelai Wanita<br>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
-            
-             <!-- Only one location button needed usually if same place, but keeping structure -->
+            <!-- Resepsi Card -->
+            <div class="event-card">
+              <h2 class="event-title">Resepsi</h2>
+              <div class="event-date-block">
+                <span class="event-day">MINGGU</span>
+                <span class="event-date-large">16</span>
+                <span class="event-month-year">Agustus 2026</span>
+              </div>
+              <div class="event-details-block">
+                <p>10.00 WIB - Selesai</p>
+                <p class="bold-text">Kediaman Mempelai Wanita</p>
+                <p>Ds Pagu, Wates, Kediri,<br>Jawa Timur</p>
+              </div>
+              <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Gallery Section -->
+      <section class="gallery-section" id="gallery">
+        <div class="gallery-header">
+          <h2 class="gallery-title">Our Gallery</h2>
+          <p class="gallery-subtitle">A collection of moments we never want to forget.</p>
+        </div>
+
+        <div class="gallery-masonry">
+          <!-- Left Column -->
+          <div class="gallery-col">
+            <div class="gallery-item item-tall"></div>
+            <div class="gallery-item item-square"></div>
+            <div class="gallery-item item-short"></div>
+          </div>
+          <!-- Right Column -->
+          <div class="gallery-col">
+            <div class="gallery-item item-short"></div>
+            <div class="gallery-item item-tall"></div>
+            <div class="gallery-item item-tall"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Story Section -->
+      <section class="story-section" id="story">
+        <div class="story-header">
+          <h2 class="story-title">Our Story</h2>
+          <p class="story-subtitle">A tale of love bound by time.</p>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-track"></div>
+
+          <!-- Event 1: First Met -->
+          <div class="timeline-item">
+            <div class="timeline-dot dot-maroon"></div>
+            <div class="timeline-content card-maroon">
+              <span class="timeline-month">April 2024</span>
+              <h3 class="timeline-heading">First Met</h3>
+              <p class="timeline-text">Cerita kita berawal dari perkenalan sederhana yang perlahan membawa kami semakin dekat. Dari momen kecil hingga cerita panjang, semuanya tumbuh menjadi rasa yang tak tergantikan. Kini, kami melangkah bersama menuju bab baru dalam hidup kami.</p>
+            </div>
+          </div>
+
+          <!-- Event 2: Engagement -->
+          <div class="timeline-item">
+            <div class="timeline-dot dot-tan"></div>
+            <div class="timeline-content card-tan">
+              <span class="timeline-month">Maret 2025</span>
+              <h3 class="timeline-heading">Engagement</h3>
+              <p class="timeline-text">Momen pertunangan kami menjadi tanda bahwa perjalanan ini sudah menemukan arah yang pasti. Dengan hati yang mantap, kami berjanji untuk menjaga dan menemani satu sama lain. Kini, langkah menuju pernikahan terasa semakin berarti.</p>
+            </div>
+          </div>
+
+          <!-- Event 3: Wedding -->
+          <div class="timeline-item">
+            <div class="timeline-dot dot-tan"></div>
+            <div class="timeline-content card-tan">
+              <span class="timeline-month">November 2025</span>
+              <h3 class="timeline-heading">Wedding</h3>
+              <p class="timeline-text">Pernikahan ini adalah puncak dari cerita yang kami mulai sejak perkenalan sederhana. Dengan keluarga dan sahabat sebagai saksi, kami memulai hidup baru sebagai pasangan. Sebuah bab baru yang ingin kami tulis selamanya.</p>
+            </div>
+          </div>
+
         </div>
       </section>
       
