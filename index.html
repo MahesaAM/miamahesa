@@ -60,14 +60,8 @@
             <button class="fab-btn" title="WhatsApp">
                 <i class="fab fa-whatsapp"></i>
             </button>
-            <button class="fab-btn" title="Menu">
-                <i class="fas fa-th-large"></i>
-            </button>
             <button class="fab-btn" title="Music" onclick="toggleMusic()">
                 <i id="musicIcon" class="fas fa-music"></i>
-            </button>
-            <button class="fab-btn" title="Auto Scroll">
-                <i class="fas fa-play"></i>
             </button>
         </div>
 
@@ -112,21 +106,24 @@
 
       <!-- Quote Section -->
       <section class="quote-section">
+        <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left" style="left: -50px;">
         <div class="couple-hero-image">
-           <!-- Placeholder for couple photo -->
-           <div class="placeholder-img" style="aspect-ratio: 4/3; background: #ddd;"></div>
+           <img src="assets/foto/foto1.png" alt="Foto Pasangan" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
         </div>
         <p class="quran-quote">
-          "Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikanNya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir."
+          "Dan segala sesuatu di alam
+semesta Kami ciptakan secara
+berpasang-pasangan agar kamu
+mengingat (kebesaran Allah)"
         </p>
-        <p class="quote-source">(Qs. Ar. Rum (30) : 21)</p>
+        <p class="quote-source">(Q.S. Adz-dzariyat: 49)</p>
       </section>
 
       <!-- Bride & Groom -->
       <section class="profile-section">
         <!-- Top Flowers for Profile Section -->
-        <img src="assets/merah-art-numga-3.webp" class="profile-flower profile-left-top" alt="Top Left Branch">
-        <img src="assets/merah-art-numga-3.webp" class="profile-flower profile-right-top" alt="Top Right Branch">
+        <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left">
+        <img src="assets/pohon kanan.png" alt="Decorative Tree Right" class="tree-right">
 
         <div class="profile-inner-container">
           <p class="intro-text">
@@ -138,7 +135,7 @@
           </p>
           
           <div class="profile-card">
-            <div class="profile-img-rect bg-placeholder"></div>
+            <div class="profile-img-rect"><img src="assets/foto/mahesa.jpg" alt="Foto Mahesa" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
             <h3 class="profile-name">Mahesa Anugrah Mulyo, S.Kom.</h3>
             <p class="parents-name">Putra dari Bapak Mahdum & Ibu Napsiyah</p>
             <span class="ig-handle">@mahesa.am</span>
@@ -147,7 +144,7 @@
           <div class="separator-amp">&</div>
 
           <div class="profile-card"> 
-            <div class="profile-img-rect bg-placeholder"></div>
+            <div class="profile-img-rect"><img src="assets/foto/mia.jpg" alt="Foto Mia" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
             <h3 class="profile-name">Nurul Islamiyah, S.S.</h3>
             <p class="parents-name">Putri dari Bapak Salimin & Ibu Muzainah</p>
             <span class="ig-handle">@mianurul.is</span>
@@ -179,10 +176,12 @@
 
         <!-- Events Wrapper (Cards + Background Flowers) -->
         <div class="events-wrapper">
+          
           <p class="date-text" style="color: white; margin-top: 2rem;">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami :</p>
           <!-- Side Flowers for Events Section -->
           <img src="assets/merah-art-numga-2.png" class="events-flower events-left" alt="Left Flower">
           <img src="assets/merah-art-numga-1.png" class="events-flower events-right" alt="Right Flower">
+          
           <div class="events-cards-container">
             <!-- Akad Nikah Card -->
             <div class="event-card">
@@ -197,9 +196,10 @@
                 <p class="bold-text">Kediaman Mempelai Wanita</p>
                 <p>Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
               </div>
-              <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+              <a href="https://www.google.com/maps?q=-6.978200386013787,110.50040810343658" target="_blank" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
-
+            <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left" style="left: -80px;">
+            <img src="assets/pohon kanan.png" alt="Decorative Tree Right" class="tree-right" style="right: -80px;">
             <!-- Resepsi Card -->
             <div class="event-card">
               <h2 class="event-title">Resepsi</h2>
@@ -214,8 +214,22 @@
                 <p class="bold-text">Kediaman Mempelai Wanita</p>
                 <p>Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
               </div>
-              <a href="#" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+              <a href="https://www.google.com/maps?q=-6.978200386013787,110.50040810343658" target="_blank" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
+          </div>
+
+          <!-- Embedded Google Maps -->
+          <div class="map-container">
+            <h2 class="map-title">Lokasi Acara</h2>
+            <iframe
+              src="https://maps.google.com/maps?q=-6.978200386013787,110.50040810343658&hl=id&z=17&output=embed"
+              width="100%"
+              height="240"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
           </div>
         </div>
       </section>
@@ -230,21 +244,22 @@
         <div class="gallery-masonry">
           <!-- Left Column -->
           <div class="gallery-col">
-            <div class="gallery-item item-tall"></div>
-            <div class="gallery-item item-square"></div>
-            <div class="gallery-item item-short"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/AJI_0919.jpg" alt="Gallery 1" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-square"><img src="assets/images/AJI_0942.jpg" alt="Gallery 2" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-short"><img src="assets/images/AJI_1006.jpg" alt="Gallery 3" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
           </div>
           <!-- Right Column -->
           <div class="gallery-col">
-            <div class="gallery-item item-short"></div>
-            <div class="gallery-item item-tall"></div>
-            <div class="gallery-item item-tall"></div>
+            <div class="gallery-item item-short"><img src="assets/images/DCP04272.JPG" alt="Gallery 4" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/DCP04459.JPG" alt="Gallery 5" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/IMG_6549.JPG" alt="Gallery 6" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
           </div>
         </div>
       </section>
 
       <!-- Our Story Section -->
       <section class="story-section" id="story">
+        
         <div class="story-header">
           <h2 class="story-title">Our Story</h2>
           <p class="story-subtitle">A tale of love bound by time.</p>
@@ -290,6 +305,9 @@
       <section class="gift-section" id="gift">
         <!-- Background Overlay -->
         <div class="gift-bg-layer"></div>
+        <img src="assets/pohon kiri.png" alt="Decorative Tree Left" class="tree-left">
+        <img src="assets/pohon kanan.png" alt="Decorative Tree Right" class="tree-right">
+        
 
         <div class="gift-container">
           <h2 class="gift-title">Wedding Gift</h2>
@@ -303,10 +321,11 @@
             <div class="gift-card-body">
               <div class="gift-info">
                 <p class="gift-info-title">Nama Penerima:</p>
-                <p class="gift-info-desc">Rina & Dimas</p>
+                <p class="gift-info-desc">Mia & Mahesa</p>
                 
                 <p class="gift-info-title" style="margin-top: 10px;">Alamat Penerima:</p>
-                <p class="gift-info-desc" id="copyAddress">Jalan Mawar 9 No.28<br>Gayamsari, Semarang</p>
+                <p class="gift-info-desc" id="copyAddress">Gang Gedung NU RT.07 RW.O1
+<br>Penggaron Lor, Genuk, Semarang</p>
               </div>
               <div class="gift-action">
                 <button class="copy-btn" onclick="copyText('copyAddress', this)"><i class="far fa-copy"></i> Salin Alamat</button>
@@ -323,7 +342,7 @@
             <div class="gift-card-body">
               <div class="gift-info">
                 <p class="gift-info-title">Atas Nama</p>
-                <p class="gift-info-desc">Rina & Dimas</p>
+                <p class="gift-info-desc">Nurul Islamiyah</p>
                 
                 <p class="gift-info-title" style="margin-top: 10px;">Nomor Rekening</p>
                 <p class="gift-info-desc" id="copyRek1">536928473</p>
@@ -343,7 +362,7 @@
             <div class="gift-card-body">
               <div class="gift-info">
                 <p class="gift-info-title">Atas Nama</p>
-                <p class="gift-info-desc">Rina & Dimas</p>
+                <p class="gift-info-desc">Mahesa Anugrah Mulyo</p>
                 
                 <p class="gift-info-title" style="margin-top: 10px;">Nomor Rekening</p>
                 <p class="gift-info-desc" id="copyRek2">536928473</p>
@@ -423,8 +442,8 @@
         }
     }
 
-    // Countdown Logic (Target: Aug 16, 2026)
-    const targetDate = new Date("Aug 16, 2026 08:00:00").getTime();
+    // Countdown Logic (Target: Apr 03, 2026)
+    const targetDate = new Date("Apr 03, 2026 09:00:00").getTime();
     
     const timer = setInterval(function() {
         const now = new Date().getTime();

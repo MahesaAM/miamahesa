@@ -31,6 +31,7 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
   font-family: var(--font-serif);
   color: var(--primary-color);
 }
@@ -468,19 +469,96 @@ body {
     z-index: 2; /* Needs to be above trees (z-index: 1) */
 }
 
+/* Entrance keyframes */
+@keyframes slideFromLeft {
+    from { transform: translateX(-160px); opacity: 0; }
+    to   { transform: translateX(0);      opacity: 1; }
+}
+@keyframes slideFromRight {
+    from { transform: translateX(160px);  opacity: 0; }
+    to   { transform: translateX(0);      opacity: 1; }
+}
+@keyframes slideFromRightFlipped {
+    from { transform: scaleX(-1) translateX(-160px); opacity: 0; }
+    to   { transform: scaleX(-1) translateX(0);      opacity: 1; }
+}
+@keyframes slideFromBottom {
+    from { transform: translateY(120px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+@keyframes slideFromBottomRight {
+    from { transform: translateY(120px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
 /* Flower Decorations on Cover Page */
 .cover-flower {
     position: absolute;
-    opacity: 1; /* Always visible on cover */
+    opacity: 1;
     pointer-events: none;
-    z-index: 2; /* Above background, but shouldn't block text */
+    z-index: 2;
 }
 
 .title-overlay.visible .overlay-flower {
     opacity: 1;
 }
 
-/* Top-left: branch (numga-3, natural) — large, bleeds heavily off left+top */
+/* Top-left: branch slides in from left */
+.cover-page .flower-left-top {
+    top: -10px;
+    left: -100px;
+    width: 170px;
+    transform-origin: top left;
+    animation:
+        slideFromLeft 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both,
+        flowerSwayLeft 4s ease-in-out 1.1s infinite alternate;
+}
+
+/* Top-right: branch slides in from right (flipped) */
+.cover-page .flower-right-top {
+    top: -10px;
+    right: -30px;
+    width: 170px;
+    transform-origin: top right;
+    animation:
+        slideFromRightFlipped 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s both,
+        flowerSwayRightFlipped 4.5s ease-in-out 1.3s infinite alternate;
+}
+
+/* Right-middle: slides in from right */
+.cover-page .flower-right-middle {
+    top: 25%;
+    right: -80px;
+    width: 150px;
+    transform-origin: center;
+    animation:
+        slideFromRightFlipped 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s both,
+        flowerSwayRightFlipped 5s ease-in-out 1.5s infinite alternate;
+}
+
+/* Bottom-left: numga-2 slides in from bottom-left */
+.cover-page .flower-left-bottom {
+    bottom: -10px;
+    left: -10px;
+    width: 280px;
+    transform-origin: bottom left;
+    animation:
+        slideFromBottom 1s cubic-bezier(0.22,1,0.36,1) 0.3s both,
+        flowerSwayLeft 5s ease-in-out 1.3s infinite alternate;
+}
+
+/* Bottom-right: numga-1 slides in from bottom-right */
+.cover-page .flower-right-bottom {
+    bottom: -10px;
+    right: -10px;
+    width: 280px;
+    transform-origin: bottom right;
+    animation:
+        slideFromBottomRight 1s cubic-bezier(0.22,1,0.36,1) 0.1s both,
+        flowerSwayRight 4.2s ease-in-out 1.1s infinite alternate;
+}
+
+/* Overlay flowers keep original positioning without entrance */
 .flower-left-top {
     top: -10px;
     left: -100px;
@@ -488,8 +566,6 @@ body {
     transform-origin: top left;
     animation: flowerSwayLeft 4s ease-in-out infinite alternate;
 }
-
-/* Top-right: branch (numga-3, flipped) — bleeds off right, ~half visible */
 .flower-right-top {
     top: -10px;
     right: -30px;
@@ -498,8 +574,6 @@ body {
     transform: scaleX(-1);
     animation: flowerSwayRightFlipped 4.5s ease-in-out infinite alternate;
 }
-
-/* Right-middle: branch (numga-3, flipped) — around "Mia" text level on right side */
 .flower-right-middle {
     top: 25%;
     right: -80px;
@@ -507,8 +581,6 @@ body {
     transform-origin: center;
     animation: flowerSwayRightFlipped 5s ease-in-out infinite alternate;
 }
-
-/* Bottom-left: numga-2 — bouquet naturally in bottom-left corner area */
 .flower-left-bottom {
     bottom: -10px;
     left: -10px;
@@ -516,8 +588,6 @@ body {
     transform-origin: bottom left;
     animation: flowerSwayLeft 5s ease-in-out infinite alternate;
 }
-
-/* Bottom-right: numga-1 — bouquet naturally in bottom-right corner area */
 .flower-right-bottom {
     bottom: -10px;
     right: -10px;
@@ -589,6 +659,8 @@ section {
 .profile-inner-container {
     border: 3px solid #591d1d; /* Maroon color matching image */
     border-radius: 40px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
     margin: 0 0.5rem; /* Margin luar dikurangi agar container lebih lebar */
     padding: 4rem 1.5rem; /* Padding dalam ditambah agar teks tidak mepet */
     position: relative;
@@ -654,15 +726,16 @@ section {
 }
 
 .profile-img-rect {
-    width: 90%;
-    max-width: 380px;
-    aspect-ratio: 5 / 8; /* Taller element based on user request "panjangkan lagi" */
-    background-color: #e0d8d7; /* Placeholder color */
+    width: 65%;
+    max-width: 220px;
+    aspect-ratio: 3 / 4;
+    background-color: #e0d8d7;
     background-size: cover;
     background-position: center;
     margin: 0 auto 2rem auto;
-    border-radius: 4px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Slightly deeper shadow */
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 .profile-name {
@@ -936,6 +1009,39 @@ section {
 
 .location-btn:active {
     transform: scale(0.95);
+}
+
+/* --------------------------
+ * Map Section
+ * -------------------------- */
+.map-container {
+    background-color: #eedcd3;
+    border: 1px solid #56081c;
+    border-radius: 40px;
+    padding: 1rem;
+    width: 85%;
+    max-width: 400px;
+    margin: 2rem auto 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.map-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 3.5rem;
+    color: #56081c;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.map-container iframe {
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    display: block;
 }
 
 /* --------------------------
