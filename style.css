@@ -1356,3 +1356,323 @@ section {
 .copy-btn:active {
     transform: scale(0.95);
 }
+
+/* --------------------------
+ * Best Wishes Section
+ * -------------------------- */
+.wishes-section {
+    background-color: #4a0d17; /* Darker maroon background */
+    padding: 5rem 1.5rem;
+    color: #eedcd3;
+}
+
+.wishes-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.wishes-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 4rem;
+    font-weight: normal;
+    color: #eedcd3;
+    margin-bottom: 0px;
+    line-height: 1;
+}
+
+.wishes-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.wishes-container {
+    border: 1px solid #eedcd3;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: transparent;
+}
+
+.wishes-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wishes-input,
+.wishes-select,
+.wishes-textarea {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #e5d3c8; /* Tan/cream input background */
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #6a3d3a;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-style: italic; /* Matches "Nama Anda" italic styling in ref */
+    transition: border-color 0.2s;
+}
+
+.wishes-input:focus,
+.wishes-select:focus,
+.wishes-textarea:focus {
+    outline: none;
+    border-color: #a46c68;
+}
+
+/* Remove default appearance for select */
+.wishes-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a0d17'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.wishes-form ::placeholder {
+    color: #8c5d5a;
+    opacity: 1;
+}
+
+.wishes-submit-btn {
+    align-self: flex-end;
+    background-color: #eedcd3;
+    color: #4a0d17;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+    font-family: var(--font-sans);
+}
+
+.wishes-submit-btn:active {
+    transform: scale(0.95);
+}
+
+.wishes-divider {
+    border: 0;
+    height: 1px;
+    background-color: #eedcd3;
+    margin: 2rem 0;
+    opacity: 0.5;
+}
+
+.wishes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.wish-card {
+    box-sizing: border-box;
+    background-color: #dcbfae; /* Slightly darker tan for the card */
+    border-radius: 12px;
+    padding: 1.5rem 1.2rem; /* bit more padding vertically */
+    color: #4a0d17;
+    text-align: left;
+    position: relative;
+    font-family: var(--font-sans);
+}
+
+.wish-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #4a0d17;
+    color: #eedcd3;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.wish-badge i {
+    font-size: 0.75rem;
+}
+
+.wish-name {
+    font-size: 1.2rem;
+    font-weight: 800; /* Extra bold */
+    margin: 0 0 10px 0;
+}
+
+.wish-card-divider {
+    border: 0;
+    height: 1px;
+    background-color: #4a0d17;
+    opacity: 0.4;
+    margin: 10px 0;
+}
+
+.wish-message {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+
+.wish-time {
+    display: block;
+    text-align: right;
+    font-size: 0.75rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.wishes-see-all-btn {
+    width: 100%;
+    background-color: #eedcd3;
+    color: #4a0d17;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: var(--font-sans);
+}
+
+.wishes-see-all-btn:hover {
+    background-color: #dcbfae;
+}
+
+/* --- Carousel Animations --- */
+.wishes-list {
+    min-height: 150px; /* Prevent jumping when empty/loading */
+    position: relative;
+    overflow: hidden;
+    /* Added flex properties to keep children contained if necessary, though absolute positioning works */
+}
+
+.carousel-card {
+    width: 100%;
+    /* Default state is hidden and pushed to the right */
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.carousel-card.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative; /* Take up space once in view */
+}
+
+.carousel-card.slide-out {
+    opacity: 0;
+    transform: translateX(-100%);
+    position: absolute; /* Take out of flow to let sliding in card take space */
+}
+
+/* --- Modal Styling --- */
+.wishes-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wishes-modal.active {
+    display: flex; /* Centers content */
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.wishes-modal-content {
+    background-color: #4a0d17;
+    border: 2px solid #eedcd3;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+
+.wishes-modal.active .wishes-modal-content {
+    transform: translateY(0);
+}
+
+.wishes-modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(238, 220, 211, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #eedcd3;
+}
+
+.wishes-modal-title {
+    font-family: 'Edwardian Script ITC', var(--font-script);
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin: 0;
+    line-height: 1;
+}
+
+.wishes-modal-close {
+    background: none;
+    border: none;
+    color: #eedcd3;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.wishes-modal-close:hover {
+    transform: scale(1.1);
+}
+
+.wishes-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Custom scrollbar for modal body */
+.wishes-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+.wishes-modal-body::-webkit-scrollbar-track {
+    background: rgba(238, 220, 211, 0.1); 
+    border-radius: 4px;
+}
+.wishes-modal-body::-webkit-scrollbar-thumb {
+    background: #a46c68; 
+    border-radius: 4px;
+}
+.wishes-modal-body::-webkit-scrollbar-thumb:hover {
+    background: #eedcd3; 
+}

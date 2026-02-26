@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Book Admin - Mia & Mahesa</title>
+    <!-- Use the same base font/theme if desired, or a clean admin font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --maroon: #4a0d17;
+            --tan: #eedcd3;
+            --dark-tan: #dcbfae;
+            --light-maroon: #6a3d3a;
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--tan);
+            color: var(--maroon);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--maroon);
+            margin-top: 0;
+            border-bottom: 2px solid var(--dark-tan);
+            padding-bottom: 15px;
+        }
+
+        .guest-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: var(--dark-tan);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .guest-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .guest-input:focus {
+            border-color: var(--maroon);
+        }
+
+        .guest-btn {
+            background-color: var(--maroon);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .guest-btn:hover {
+            opacity: 0.9;
+        }
+
+        .guest-btn:active {
+            transform: scale(0.95);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--maroon);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-hadir {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-tidak {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .action-btn:hover {
+            color: #a71d2a;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Loading Overlay */
+        #loader {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: var(--light-maroon);
+        }
+        
+        /* Link generator styling */
+        .link-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f1f1f1;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+        
+        .link-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 0.85rem;
+            color: #555;
+            outline: none;
+        }
+        
+        .copy-link-btn {
+            background: var(--maroon);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h1>Manajemen Buku Tamu</h1>
+
+        <form class="guest-form" id="guestForm">
+            <input type="text" id="guestName" class="guest-input" placeholder="Nama Tamu (contoh: Budi Setiawan)" required>
+            <button type="submit" class="guest-btn" id="submitBtn">
+                <i class="fas fa-plus"></i> Tambah Tamu
+            </button>
+        </form>
+
+        <div id="loader">Memuat daftar tamu...</div>
+
+        <table id="guestTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="45%">Nama Tamu & Link Undangan</th>
+                    <th width="20%">Status Kehadiran</th>
+                    <th width="20%">Waktu Dibuat</th>
+                    <th width="10%">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="guestTableBody">
+                <!-- Rows will be added here via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // --- SUPABASE INITIALIZATION ---
+        const supabaseUrl = 'https://wdvedlmnapxxfvpyfwqa.supabase.co';
+        const supabaseKey = 'sb_publishable_d9czc-ba1h674q5v4BKhAw_ke7rDMe0';
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        const guestForm = document.getElementById('guestForm');
+        const guestNameInput = document.getElementById('guestName');
+        const submitBtn = document.getElementById('submitBtn');
+        const guestTable = document.getElementById('guestTable');
+        const guestTableBody = document.getElementById('guestTableBody');
+        const loader = document.getElementById('loader');
+
+        // Helper: Format Date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+        
+        // Helper: Generate Unique Link
+        function generateLink(name) {
+            // Encode the name so it can be passed in URL (e.g. Budi Setiawan -> Budi%20Setiawan)
+            const encodedName = encodeURIComponent(name);
+            // Replace with your actual domain later
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
+            return `${baseUrl}?to=${encodedName}`;
+        }
+
+        // Copy Link Function
+        window.copyInvitationLink = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+            
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Disalin';
+            btn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.style.backgroundColor = 'var(--maroon)';
+            }, 2000);
+        };
+
+        // Fetch Data
+        async function fetchGuests() {
+            try {
+                // We fetch from the new 'guest_list' table
+                const { data, error } = await supabaseClient
+                    .from('guest_list')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                loader.style.display = 'none';
+                guestTable.style.display = 'table';
+                guestTableBody.innerHTML = '';
+
+                if (data.length === 0) {
+                    guestTableBody.innerHTML = `<tr><td colspan="5" class="empty-state">Belum ada tamu yang didaftarkan.</td></tr>`;
+                    return;
+                }
+
+                data.forEach((guest, index) => {
+                    // Determine badge
+                    let badgeHTML = '';
+                    if (guest.attendance_status === 'Hadir') {
+                        badgeHTML = '<span class="status-badge status-hadir">Hadir</span>';
+                    } else if (guest.attendance_status === 'Tidak Hadir') {
+                        badgeHTML = '<span class="status-badge status-tidak">Tidak Hadir</span>';
+                    } else {
+                        badgeHTML = '<span class="status-badge status-pending">Belum Konfirmasi</span>';
+                    }
+                    
+                    const copyId = `link_${guest.id}`;
+                    const invLink = generateLink(guest.name);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>
+                            <strong>${guest.name}</strong>
+                            <div class="link-container">
+                                <input type="text" id="${copyId}" class="link-input" value="${invLink}" readonly>
+                                <button class="copy-link-btn" onclick="copyInvitationLink('${copyId}', this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>${badgeHTML}</td>
+                        <td>${formatDate(guest.created_at)}</td>
+                        <td>
+                            <button class="action-btn" onclick="deleteGuest('${guest.id}', '${guest.name}')" title="Hapus Tamu">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    guestTableBody.appendChild(tr);
+                });
+
+            } catch (error) {
+                console.error('Error fetching guests:', error);
+                loader.innerHTML = '<span style="color:red;">Gagal memuat data. Periksa koneksi atau konfigurasi Supabase.</span>';
+            }
+        }
+
+        // Add Guest
+        guestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = guestNameInput.value.trim();
+            if (!name) return;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('guest_list')
+                    .insert([
+                        { 
+                            name: name,
+                            attendance_status: 'Pending' // Default status before they confirm
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                guestNameInput.value = '';
+                await fetchGuests(); // Refresh table
+
+            } catch (error) {
+                console.error('Error adding guest:', error);
+                alert('Gagal menambahkan tamu.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-plus"></i> Tambah Tamu';
+            }
+        });
+
+        // Delete Guest
+        window.deleteGuest = async function(id, name) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus tamu "${name}"?`)) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('guest_list')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+                
+                // Refresh list
+                await fetchGuests();
+                
+            } catch (error) {
+                console.error('Error deleting guest:', error);
+                alert('Gagal menghapus tamu.');
+            }
+        };
+
+        // Load initially
+        window.addEventListener('DOMContentLoaded', fetchGuests);
+
+    </script>
+</body>
+</html>
