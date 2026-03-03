@@ -137,7 +137,7 @@ mengingat (kebesaran Allah)"
           </p>
           
           <div class="profile-card">
-            <div class="profile-img-rect"><img src="assets/foto/mahesa.jpg" alt="Foto Mahesa" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="profile-img-rect"><img src="assets/foto/mahesa.jpg" alt="Foto Mahesa" style="width:100%;height:100%;object-fit:cover;border-radius:inherit; transform: scale(1.6); object-position: center 20%;"></div>
             <h3 class="profile-name">Mahesa Anugrah Mulyo, S.Kom.</h3>
             <p class="parents-name">Putra dari Bapak Mahdum & Ibu Napsiyah</p>
             <span class="ig-handle">@mahesa.am</span>
@@ -146,7 +146,7 @@ mengingat (kebesaran Allah)"
           <div class="separator-amp">&</div>
 
           <div class="profile-card"> 
-            <div class="profile-img-rect"><img src="assets/foto/mia.jpg" alt="Foto Mia" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="profile-img-rect"><img src="assets/foto/mia.jpg" alt="Foto Mia" style="width:100%;height:100%;object-fit:cover;border-radius:inherit; transform: scale(1.6); object-position: center 20%;"></div>
             <h3 class="profile-name">Nurul Islamiyah, S.S.</h3>
             <p class="parents-name">Putri dari Bapak Salimin & Ibu Muzainah</p>
             <span class="ig-handle">@mianurul.is</span>
@@ -246,15 +246,15 @@ mengingat (kebesaran Allah)"
         <div class="gallery-masonry">
           <!-- Left Column -->
           <div class="gallery-col">
-            <div class="gallery-item item-tall"><img src="assets/images/AJI_0919.jpg" alt="Gallery 1" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
-            <div class="gallery-item item-square"><img src="assets/images/AJI_0942.jpg" alt="Gallery 2" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
-            <div class="gallery-item item-short"><img src="assets/images/AJI_1006.jpg" alt="Gallery 3" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/AJI_0919.jpg" alt="Gallery 1" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
+            <div class="gallery-item item-square"><img src="assets/images/AJI_0942.jpg" alt="Gallery 2" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
+            <div class="gallery-item item-short"><img src="assets/images/AJI_1006.jpg" alt="Gallery 3" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
           </div>
           <!-- Right Column -->
           <div class="gallery-col">
-            <div class="gallery-item item-short"><img src="assets/images/DCP04272.JPG" alt="Gallery 4" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
-            <div class="gallery-item item-tall"><img src="assets/images/DCP04459.JPG" alt="Gallery 5" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
-            <div class="gallery-item item-tall"><img src="assets/images/IMG_6549.JPG" alt="Gallery 6" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div class="gallery-item item-short"><img src="assets/images/DCP04272.JPG" alt="Gallery 4" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/DCP04459.JPG" alt="Gallery 5" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
+            <div class="gallery-item item-tall"><img src="assets/images/IMG_6549.JPG" alt="Gallery 6" class="gallery-image" onclick="openFullscreen(this.src)" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;cursor:pointer;"></div>
           </div>
         </div>
       </section>
@@ -429,6 +429,16 @@ mengingat (kebesaran Allah)"
             <!-- All wishes will be injected here -->
         </div>
       </div>
+    </div>
+
+    <!-- Fullscreen Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="image-modal-close" onclick="closeFullscreen()">&times;</span>
+        <img class="image-modal-content" id="imgModalContent">
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomOutBtn" onclick="zoomImage(-0.5)"><i class="fas fa-search-minus"></i></button>
+            <button class="zoom-btn" id="zoomInBtn" onclick="zoomImage(0.5)"><i class="fas fa-search-plus"></i></button>
+        </div>
     </div>
   </div>
 
@@ -746,6 +756,7 @@ mengingat (kebesaran Allah)"
         wishSubmitBtn.innerHTML = '<i class="fas fa-spinner spinning"></i> Menyimpan...';
 
         try {
+            // 1. Insert wish into guest_wishes table
             const { data, error } = await supabaseClient
                 .from('guest_wishes')
                 .insert([
@@ -753,6 +764,13 @@ mengingat (kebesaran Allah)"
                 ]);
 
             if (error) throw error;
+            
+            // 2. Synchronize status with the admin's guest_list table
+            // This will look for a guest matching the name and update their status.
+            await supabaseClient
+                .from('guest_list')
+                .update({ attendance_status: attendanceInput })
+                .eq('name', nameInput);
 
             // Clear form
             wishesForm.reset();
@@ -796,6 +814,161 @@ mengingat (kebesaran Allah)"
                 nameInput.readOnly = true; // Kunci agar tidak bisa diubah user (Opsional, tapi disarankan)
                 nameInput.style.opacity = '0.8';
             }
+        }
+    });
+
+    // Image Modal and Zooming Functions
+    const imageModal = document.getElementById("imageModal");
+    const imgModalContent = document.getElementById("imgModalContent");
+    
+    let scale = 1;
+    let panning = false;
+    let pointX = 0;
+    let pointY = 0;
+    let start = { x: 0, y: 0 };
+    let initialDistance = 0;
+    let initialScale = 1;
+
+    function openFullscreen(src) {
+        if (imageModal && imgModalContent) {
+            imageModal.style.display = "block";
+            imgModalContent.src = src;
+            document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+            // Reset zoom state
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            updateTransform();
+        }
+    }
+
+    function closeFullscreen() {
+        if (imageModal) {
+            imageModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+
+    function updateTransform() {
+        if (imgModalContent) {
+            imgModalContent.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+    }
+
+    // --- Button Zoom ---
+    window.zoomImage = function(step) {
+        scale += step;
+        scale = Math.min(Math.max(1, scale), 4);
+        
+        if(scale === 1) {
+             pointX = 0;
+             pointY = 0;
+        }
+        updateTransform();
+    };
+
+    // --- Desktop Zoom (Mouse Wheel) ---
+    imageModal.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        
+        let xs = (e.clientX - pointX) / scale,
+            ys = (e.clientY - pointY) / scale;
+            
+        // scroll up to zoom in, scroll down to zoom out
+        scale -= e.deltaY * 0.01;
+        // Limit zoom
+        scale = Math.min(Math.max(1, scale), 4);
+        
+        // Adjust panning to zoom towards mouse cursor
+        pointX = e.clientX - xs * scale;
+        pointY = e.clientY - ys * scale;
+
+        // Reset panning if fully zoomed out
+        if(scale === 1) {
+             pointX = 0;
+             pointY = 0;
+        }
+
+        updateTransform();
+    }, {passive: false});
+
+    // --- Mouse Drag/Pan ---
+    imgModalContent.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        start = { x: e.clientX - pointX, y: e.clientY - pointY };
+        panning = true;
+    });
+
+    imageModal.addEventListener('mouseup', () => {
+        panning = false;
+    });
+
+    imageModal.addEventListener('mousemove', (e) => {
+        e.preventDefault();
+        if (!panning || scale === 1) return;
+        pointX = (e.clientX - start.x);
+        pointY = (e.clientY - start.y);
+        updateTransform();
+    });
+
+    // --- Mobile Touch Zoom & Pan (Pinch) ---
+    imageModal.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            // Pinch start
+            e.preventDefault();
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            initialDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+            initialScale = scale;
+        } else if (e.touches.length === 1 && scale > 1) {
+            // Pan zoom start
+            const touch = e.touches[0];
+            start = { x: touch.clientX - pointX, y: touch.clientY - pointY };
+            panning = true;
+        }
+    }, {passive: false});
+
+    imageModal.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2) {
+             // Pinching
+             e.preventDefault();
+             const touch1 = e.touches[0];
+             const touch2 = e.touches[1];
+             const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+             
+             // Calculate new scale based on pinch distance delta
+             scale = initialScale * (currentDistance / initialDistance);
+             scale = Math.min(Math.max(1, scale), 4); // limit
+
+             // When pinching, keeping it simple: just zoom from center (improving this to zoom at pinch-center requires more math)
+             if(scale === 1) {
+                 pointX = 0;
+                 pointY = 0;
+             }
+             updateTransform();
+        } else if (e.touches.length === 1 && panning && scale > 1) {
+             // Panning
+             e.preventDefault();
+             const touch = e.touches[0];
+             pointX = touch.clientX - start.x;
+             pointY = touch.clientY - start.y;
+             updateTransform();
+        }
+    }, {passive: false});
+
+    imageModal.addEventListener('touchend', (e) => {
+        if(e.touches.length < 2) {
+            initialDistance = 0;
+        }
+        if(e.touches.length === 0) {
+            panning = false;
+        }
+    });
+
+    // Close modal when clicking outside the image (only on background)
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            closeFullscreen();
         }
     });
 
