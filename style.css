@@ -61,7 +61,7 @@ html {
     width: 50px;
     height: 50px;
     border: 4px solid rgba(89, 29, 29, 0.2);
-    border-top: 4px solid #591d1d;
+    border-top: 4px solid #301E11;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
@@ -74,7 +74,7 @@ html {
 
 .loader-text {
     font-family: var(--font-serif);
-    color: #591d1d;
+    color: #301E11;
     font-size: 1.2rem;
     letter-spacing: 2px;
 }
@@ -104,13 +104,13 @@ body {
 
 /* Floating Action Buttons */
 .fab-container {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 2000; /* Above everything */
+    z-index: 5000; /* Above everything including modals */
 }
 
 .fab-btn {
@@ -143,7 +143,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-image: url("assets/background.png");
+  background-image: url("assets/bg.png");
   background-color: #fce9dc;
   background-size: cover;
   background-position: center;
@@ -251,7 +251,8 @@ body {
 .couple-names span {
   display: block;
   font-size: 1.5rem; /* For the '&' */
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   margin: 0.2rem 0;
 }
 
@@ -271,7 +272,7 @@ body {
 }
 
 .guest-name {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 
@@ -279,17 +280,17 @@ body {
   background-color: var(--button-bg);
   color: var(--button-text);
   border: none;
-  padding: 10px 20px;
+  padding: 7px 14px;
   border-radius: 20px;
-  font-size: 1rem;
+  font-size: 0.82rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition:
     transform 0.2s,
     background-color 0.2s;
-  text-decoration: none; /* If it were an anchor */
+  text-decoration: none;
 }
 
 .open-invitation-btn:hover {
@@ -423,6 +424,12 @@ body {
     line-height: 1;
     margin-bottom: 1rem;
     font-weight: normal;
+}
+
+.amp-plain {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 2rem;
 }
 
 .overlay-date {
@@ -631,6 +638,21 @@ section {
     color: white;
     margin: 1rem;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+.couple-hero-image {
+    width: 100%;
+    aspect-ratio: 10 / 7; /* Same as original foto1.png (1204x840) */
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+.couple-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
 }
 .quran-quote {
     font-style: italic;
@@ -657,7 +679,7 @@ section {
 }
 
 .profile-inner-container {
-    border: 3px solid #591d1d; /* Maroon color matching image */
+    border: 3px solid #301E11; /* Maroon color matching image */
     border-radius: 40px;
     background-color: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(2px);
@@ -709,7 +731,7 @@ section {
 .intro-text {
     font-size: 0.85rem;
     line-height: 1.6;
-    color: #591d1d; /* Maroon color based on the design */
+    color: #301E11; /* Maroon color based on the design */
     margin: 1rem auto 3rem auto;
     width: 85%;
     font-weight: 500;
@@ -740,7 +762,7 @@ section {
 
 .profile-name {
     font-size: 1.3rem;
-    color: #591d1d; /* Maroon color matching image */
+    color: #301E11; /* Maroon color matching image */
     font-family: var(--font-serif);
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -748,14 +770,14 @@ section {
 
 .parents-name {
     font-size: 0.9rem;
-    color: #591d1d;
+    color: #301E11;
     margin-bottom: 1rem;
     line-height: 1.4;
 }
 
 .ig-handle {
     display: inline-block;
-    background-color: #591d1d; /* Maroon pill */
+    background-color: #301E11; /* Maroon pill */
     color: #fce9dc; /* Cream text */
     padding: 6px 20px;
     border-radius: 20px;
@@ -766,16 +788,17 @@ section {
 }
 
 .separator-amp {
-    font-size: 5rem;
-    color: #591d1d;
-    font-family: var(--font-script);
+    font-size: 4rem;
+    color: #301E11;
+    font-family: var(--font-sans);
+    font-style: normal;
     margin: 5rem auto;
     width: 75px;
     height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #591d1d;
+    border: 2px solid #301E11;
     border-radius: 50%;
     line-height: 1;
     background-color: transparent;
@@ -783,7 +806,7 @@ section {
 
 /* Countdown Section */
 .countdown-wrapper {
-    background-color: #56081c; /* Dark Maroon based on user request */
+    background-color: #301E11; /* Dark Maroon based on user request */
     background-image: url('assets/background.png');
     background-repeat: repeat;
     background-size: cover;
@@ -842,14 +865,14 @@ section {
     display: block;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #56081c; /* Maroon text */
+    color: #301E11; /* Maroon text */
     line-height: 1;
     margin-bottom: 3px;
 }
 
 .countdown-item small {
     font-size: 0.75rem;
-    color: #56081c;
+    color: #301E11;
     font-weight: bold;
     text-transform: capitalize;
 }
@@ -857,7 +880,7 @@ section {
 .save-date-btn {
     display: inline-block;
     background-color: #eedcd3;
-    color: #56081c;
+    color: #301E11;
     text-decoration: none;
     padding: 10px 30px;
     border-radius: 25px;
@@ -880,7 +903,7 @@ section {
 
 /* Green Section */
 .green-section {
-    background-color: #631111; /* Sage Green */
+    background-color: #301E11; /* Sage Green */
     padding: 0 0 0 0; /* Removed top padding to close gap */
     text-align: center;
     color: white;
@@ -889,7 +912,7 @@ section {
 /* Events Section Re-design */
 .events-wrapper {
     position: relative;
-    background-color: #56081c; /* Maroon background like the countdown section */
+    background-color: #301E11; /* Maroon background like the countdown section */
     background-image: url('assets/background.png');
     background-repeat: repeat;
     background-size: cover;
@@ -927,20 +950,20 @@ section {
 
 .event-card {
     background-color: #eedcd3;
-    border: 1px solid #56081c;
+    border: 1px solid #301E11;
     border-radius: 40px;
     padding: 3.5rem 1.5rem;
     width: 85%;
     max-width: 400px;
     text-align: center;
-    color: #56081c;
+    color: #301E11;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .event-title {
     font-family: 'Edwardian Script ITC', var(--font-script);
     font-size: 4rem;
-    color: #56081c;
+    color: #301E11;
     margin-bottom: 2rem;
     font-weight: normal;
     line-height: 1;
@@ -948,7 +971,7 @@ section {
 
 .event-date-block {
     margin-bottom: 1.5rem;
-    color: #56081c;
+    color: #301E11;
 }
 
 .event-day {
@@ -976,7 +999,7 @@ section {
     margin-bottom: 2rem;
     font-size: 0.95rem;
     line-height: 1.6;
-    color: #56081c;
+    color: #301E11;
 }
 
 .event-details-block p {
@@ -991,7 +1014,7 @@ section {
 
 .location-btn {
     display: inline-block;
-    background-color: #56081c;
+    background-color: #301E11;
     color: #eedcd3;
     text-decoration: none;
     padding: 12px 30px;
@@ -1016,7 +1039,7 @@ section {
  * -------------------------- */
 .map-container {
     background-color: #eedcd3;
-    border: 1px solid #56081c;
+    border: 1px solid #301E11;
     border-radius: 40px;
     padding: 1rem;
     width: 85%;
@@ -1030,7 +1053,7 @@ section {
 .map-title {
     font-family: 'Edwardian Script ITC', var(--font-script);
     font-size: 3.5rem;
-    color: #56081c;
+    color: #301E11;
     margin-bottom: 1rem;
     text-align: center;
     font-weight: normal;
@@ -1048,7 +1071,7 @@ section {
  * Our Gallery Section
  * -------------------------- */
 .gallery-section {
-    background-color: #56081c; /* Maroon background from reference */
+    background-color: #301E11; /* Maroon background from reference */
     color: #eedcd3;
 }
 
@@ -1117,7 +1140,7 @@ section {
 .story-section {
     background-color: #eedcd3; /* Cream background */
     padding: 5rem 1.5rem;
-    color: #56081c;
+    color: #301E11;
 }
 
 .story-header {
@@ -1129,7 +1152,7 @@ section {
     font-family: 'Edwardian Script ITC', var(--font-script);
     font-size: 4rem;
     font-weight: normal;
-    color: #56081c;
+    color: #301E11;
     margin-bottom: 0.5rem;
     line-height: 1;
 }
@@ -1138,7 +1161,7 @@ section {
     font-family: var(--font-sans);
     font-size: 0.95rem;
     font-weight: bold;
-    color: #56081c;
+    color: #301E11;
     margin: 0;
 }
 
@@ -1155,7 +1178,7 @@ section {
     bottom: 20px;
     left: 4px; /* Center with the dots */
     width: 1px;
-    background-color: #56081c; /* Track color */
+    background-color: #301E11; /* Track color */
     z-index: 1;
 }
 
@@ -1180,7 +1203,7 @@ section {
 }
 
 .dot-maroon {
-    background-color: #56081c;
+    background-color: #301E11;
     width: 24px;
     height: 24px;
     left: -37px;
@@ -1199,13 +1222,13 @@ section {
 }
 
 .card-maroon {
-    background-color: #56081c;
+    background-color: #301E11;
     color: #eedcd3;
 }
 
 .card-tan {
     background-color: #d8c6b8;
-    color: #56081c;
+    color: #301E11;
 }
 
 .timeline-month {
@@ -1255,7 +1278,7 @@ section {
     position: relative;
     z-index: 1; /* Stay above background */
     background-color: transparent;
-    border: 3px solid #56081c;
+    border: 3px solid #301E11;
     border-radius: 20px;
     padding: 2.5rem 1rem;
     max-width: 500px;
@@ -1272,7 +1295,7 @@ section {
     font-family: 'Edwardian Script ITC', var(--font-script);
     font-size: 4rem;
     font-weight: normal;
-    color: #56081c;
+    color: #301E11;
     margin-bottom: 2rem;
     line-height: 1;
 }
@@ -1280,12 +1303,12 @@ section {
 /* Gift Cards */
 .gift-card {
     background-color: #d8c6b8; /* Tan background */
-    border: 1px solid #56081c; /* Thin maroon border */
+    border: 1px solid #301E11; /* Thin maroon border */
     border-radius: 12px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     text-align: left;
-    color: #56081c;
+    color: #301E11;
 }
 
 .gift-card:last-child {
@@ -1302,7 +1325,13 @@ section {
 .gift-icon {
     font-size: 1.5rem;
     color: #3b5998; /* Default for BCA/Bank icon if needed, but styling per image suggests maroon, let's stick to maroon */
-    color: #56081c; 
+    color: #301E11; 
+}
+
+.bank-logo {
+    height: 35px; /* Adjust based on exact visual match to image */
+    width: auto;
+    object-fit: contain;
 }
 
 .gift-label {
@@ -1338,7 +1367,7 @@ section {
 }
 
 .copy-btn {
-    background-color: #56081c;
+    background-color: #301E11;
     color: #eedcd3;
     border: none;
     border-radius: 20px;
@@ -1361,7 +1390,7 @@ section {
  * Best Wishes Section
  * -------------------------- */
 .wishes-section {
-    background-color: #4a0d17; /* Darker maroon background */
+    background-color: #301E11; /* Darker maroon background */
     padding: 5rem 1.5rem;
     color: #eedcd3;
 }
@@ -1443,7 +1472,7 @@ section {
 .wishes-submit-btn {
     align-self: flex-end;
     background-color: #eedcd3;
-    color: #4a0d17;
+    color: #301E11;
     border: none;
     border-radius: 8px;
     padding: 8px 20px;
@@ -1481,7 +1510,7 @@ section {
     background-color: #dcbfae; /* Slightly darker tan for the card */
     border-radius: 12px;
     padding: 1.5rem 1.2rem; /* bit more padding vertically */
-    color: #4a0d17;
+    color: #301E11;
     text-align: left;
     position: relative;
     font-family: var(--font-sans);
@@ -1491,7 +1520,7 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background-color: #4a0d17;
+    background-color: #301E11;
     color: #eedcd3;
     font-size: 0.65rem;
     font-weight: bold;
@@ -1513,7 +1542,7 @@ section {
 .wish-card-divider {
     border: 0;
     height: 1px;
-    background-color: #4a0d17;
+    background-color: #301E11;
     opacity: 0.4;
     margin: 10px 0;
 }
@@ -1536,7 +1565,7 @@ section {
 .wishes-see-all-btn {
     width: 100%;
     background-color: #eedcd3;
-    color: #4a0d17;
+    color: #301E11;
     border: none;
     border-radius: 8px;
     padding: 12px;
@@ -1605,7 +1634,7 @@ section {
 }
 
 .wishes-modal-content {
-    background-color: #4a0d17;
+    background-color: #301E11;
     border: 2px solid #eedcd3;
     border-radius: 15px;
     width: 90%;
@@ -1766,4 +1795,100 @@ section {
 .zoom-btn:hover {
     background: rgba(255, 255, 255, 0.4);
     transform: scale(1.1);
+}
+
+/* =====================
+   Closing Footer Section
+   ===================== */
+.closing-section {
+    position: relative;
+    background-image: url('assets/background.png');
+    background-color: #301E11;
+    background-size: cover;
+    background-position: center;
+    color: #eedcd3;
+    text-align: center;
+    padding: 4rem 2rem 0;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.closing-content {
+    position: relative;
+    z-index: 2;
+}
+
+.closing-label {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.closing-names {
+    font-family: var(--font-script);
+    font-size: 3.5rem;
+    font-weight: normal;
+    color: #eedcd3;
+    margin: 0.5rem 0;
+    line-height: 1.1;
+}
+
+.closing-names .amp-plain {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    color: #eedcd3;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+    position: relative;
+    top: -0.4rem;
+}
+
+.closing-divider {
+    width: 60px;
+    height: 1px;
+    background-color: rgba(238, 220, 211, 0.5);
+    margin: 1.2rem auto;
+}
+
+.closing-message {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    opacity: 0.9;
+    max-width: 80%;
+    margin: 0 auto 1.2rem;
+}
+
+.closing-sub {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+.closing-flower {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.closing-left {
+    bottom: -20px;
+    left: -20px;
+    width: 200px;
+    animation: flowerSwayLeft 5s ease-in-out infinite alternate;
+    transform-origin: bottom left;
+}
+
+.closing-right {
+    bottom: -20px;
+    right: -20px;
+    width: 180px;
+    animation: flowerSwayRight 5s ease-in-out infinite alternate;
+    transform-origin: bottom right;
 }
