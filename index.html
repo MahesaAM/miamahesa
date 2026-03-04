@@ -37,7 +37,7 @@
                 
                 <div class="couple-names">
                     Mia
-                    <span>&</span>
+                    <span class="separator-amp">&</span>
                     Mahesa
                 </div>
 
@@ -96,9 +96,15 @@
 
             <!-- Central Content Oval -->
             <div class="content-container overlay-content">
-                <p class="overlay-subtitle">THE WEDDING OF</p>
-                <h1 class="overlay-title">Mia <br> <span class="amp-plain"></span>&</span> <br> Mahesa</h1>
-                <p class="overlay-date">03 . 04 . 2026</p>
+                <div class="wedding-title">The Wedding of</div>
+                
+                <div class="couple-names">
+                    Mia
+                    <span class="separator-amp">&</span>
+                    Mahesa
+                </div>
+
+                <div class="wedding-date">03 . 04 . 2026</div>
                 <div class="scroll-indicator">
                     <div class="mouse-icon"></div>
                 </div>
@@ -997,6 +1003,57 @@ mengingat (kebesaran Allah)"
             closeFullscreen();
         }
     });
+
+    // =====================
+    // Scroll Entrance Animations (Intersection Observer)
+    // =====================
+    const scrollContainer = document.getElementById('mainContent');
+
+    // Auto-tag elements for reveal animation
+    const revealTargets = [
+      '.quote-section',
+      '.quran-quote', '.quote-source',
+      '.intro-text',
+      '.profile-card',
+      '.separator-amp',
+      '.countdown-wrapper',
+      '.event-card',
+      '.invitation-text',
+      '.gallery-section h2', '.gallery-section p',
+      '.gallery-item',
+      '.story-section h2', '.story-section p',
+      '.timeline-item',
+      '.gift-section h2', '.gift-section p',
+      '.gift-card',
+      '.wishes-section h2', '.wishes-section p',
+      '.wishes-container',
+      '.closing-content',
+    ];
+
+    revealTargets.forEach(selector => {
+      document.querySelectorAll(selector).forEach((el, i) => {
+        el.classList.add('reveal');
+        // Add staggered delay based on sibling index
+        if (i > 0 && i <= 5) {
+          el.classList.add(`reveal-delay-${i}`);
+        }
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target); // Only animate once
+        }
+      });
+    }, {
+      root: scrollContainer,
+      threshold: 0.12,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   </script>
 </body>

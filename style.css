@@ -81,7 +81,7 @@ html {
 
 /* Mobile Frame Styles */
 body {
-    background-color: #ffffff; /* White background for desktop as requested */
+    background-color: #e0d8d7; /* Warm beige background behind the frame */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +95,7 @@ body {
     max-width: none;
     max-height: none;
     position: relative;
-    background-color: white;
+    background-color: #e0d8d7;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
     border-radius: 0; /* Flush edges */
@@ -250,9 +250,9 @@ body {
 
 .couple-names span {
   display: block;
-  font-size: 1.5rem; /* For the '&' */
-  font-family: var(--font-sans);
-  font-style: normal;
+  font-size: 2.5rem;
+  font-family: 'Georgia', serif;
+  font-style: italic;
   margin: 0.2rem 0;
 }
 
@@ -427,9 +427,9 @@ body {
 }
 
 .amp-plain {
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 2rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 2.5rem;
 }
 
 .overlay-date {
@@ -1886,3 +1886,24 @@ section {
     animation: flowerSwayRight 5s ease-in-out infinite alternate;
     transform-origin: bottom right;
 }
+
+/* =====================
+   Scroll Entrance Animations
+   ===================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delay for child items */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
