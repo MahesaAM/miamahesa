@@ -788,20 +788,14 @@ section {
 }
 
 .separator-amp {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: #301E11;
-    font-family: var(--font-sans);
-    font-style: normal;
-    margin: 5rem auto;
-    width: 75px;
-    height: 75px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #301E11;
-    border-radius: 50%;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    margin: 3rem auto;
     line-height: 1;
-    background-color: transparent;
+    text-align: center;
+    display: block;
 }
 
 /* Countdown Section */
