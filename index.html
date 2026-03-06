@@ -33,15 +33,9 @@
 
             <!-- Central Content -->
             <div class="content-container">
-                <div class="wedding-title">The Wedding of</div>
-                
-                <div class="couple-names">
-                    Mia
-                    <span class="separator-amp">&</span>
-                    Mahesa
-                </div>
-
-                <div class="wedding-date">03 . 04 . 2026</div>
+                <p class="overlay-subtitle">THE WEDDING OF</p>
+                <h1 class="overlay-title">Mia <br> & <br> Mahesa</h1>
+                <p class="overlay-date">03 . 04 . 2026</p>
 
                 <div class="guest-section">
                     <div class="guest-label">Dear,</div>
@@ -96,15 +90,9 @@
 
             <!-- Central Content Oval -->
             <div class="content-container overlay-content">
-                <div class="wedding-title">The Wedding of</div>
-                
-                <div class="couple-names">
-                    Mia
-                    <span class="separator-amp">&</span>
-                    Mahesa
-                </div>
-
-                <div class="wedding-date">03 . 04 . 2026</div>
+                <p class="overlay-subtitle">THE WEDDING OF</p>
+                <h1 class="overlay-title">Mia <br> & <br> Mahesa</h1>
+                <p class="overlay-date">03 . 04 . 2026</p>
                 <div class="scroll-indicator">
                     <div class="mouse-icon"></div>
                 </div>
@@ -165,7 +153,8 @@ mengingat (kebesaran Allah)"
       <section class="green-section">
         
         <!-- Counting the Days -->
-        <div class="countdown-wrapper">
+        <div class="countdown-wrapper" style="margin-bottom: 20px;
+">
           <h2 class="countdown-title">Counting the Days</h2>
           
           <div class="countdown-container">
@@ -197,9 +186,9 @@ mengingat (kebesaran Allah)"
                 <span class="event-month-year">April 2026</span>
               </div>
               <div class="event-details-block">
-                <p>09.00 WIB - Selesai</p>
+                <p style="font-size: 20px;">09.00 WIB - Selesai</p>
                 <p class="bold-text">Kediaman Mempelai Wanita</p>
-                <p>Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
+                <p style="font-size: 20px;">Gang Gedung NU RT07 RW01,<br>Pengaron Lor, Genuk, Semarang</p>
               </div>
               <a href="https://www.google.com/maps?q=-6.978200386013787,110.50040810343658" target="_blank" class="location-btn"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
             </div>
@@ -424,10 +413,6 @@ mengingat (kebesaran Allah)"
           <p class="closing-label">Kami yang berbahagia</p>
           <h2 class="closing-names">Mia  <span class="amp-plain">&</span>Mahesa</h2>
           <div class="closing-divider"></div>
-          <p class="closing-message">
-            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restu. Atas kehadiran dan do'a restu yang diberikan, kami mengucapkan terima kasih.
-          </p>
-          <p class="closing-sub">Wassalamu'alaikum Wr. Wb.</p>
         </div>
         <img src="assets/pohon kiri.png" alt="" class="tree-left" style="left: -50px; opacity: 0.4;">
         <img src="assets/pohon kanan.png" alt="" class="tree-right" style="right: -50px; opacity: 0.4;">
@@ -460,7 +445,7 @@ mengingat (kebesaran Allah)"
   </div>
 
   <!-- Music Audio (Hidden) -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop preload="auto">
     <source src="assets/music/music.mp3" type="audio/mpeg">
   </audio>
 
@@ -485,30 +470,6 @@ mengingat (kebesaran Allah)"
         video.onended = () => {
             // Optional: Action after video ends
         };
-      }
-
-      // Play Music starting at 2:11 (131 seconds) with fade-in
-      if (music) {
-        music.currentTime = 131;
-        music.volume = 0; // Start silent
-        music.play().then(() => {
-          musicIcon.classList.remove('fa-music');
-          musicIcon.classList.add('fa-pause');
-          musicIcon.classList.add('spinning');
-
-          // Fade in volume from 0 to 1 over 3 seconds
-          const fadeDuration = 3000; // ms
-          const steps = 30;
-          const stepTime = fadeDuration / steps;
-          const volumeStep = 1 / steps;
-          let currentStep = 0;
-          const fadeInterval = setInterval(() => {
-            currentStep++;
-            music.volume = Math.min(1, currentStep * volumeStep);
-            if (currentStep >= steps) clearInterval(fadeInterval);
-          }, stepTime);
-
-        }).catch(e => console.log("Audio autoplay failed", e));
       }
 
       // Show Title Overlay after 8 seconds
@@ -560,16 +521,60 @@ mengingat (kebesaran Allah)"
         document.getElementById("seconds").innerText = seconds;
     }, 1000);
 
-    // Hide global loader after 5 seconds
+    // Hide global loader after 5 seconds and attempt to force play music
+    let musicStarted = false;
+    
+    function forcePlayMusic() {
+        if (musicStarted) return;
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        if (music) {
+            music.muted = false; // ensure it is not muted
+            music.currentTime = 131;
+            music.volume = 0; // Start silent for fade-in
+            
+            // Try to play immediately after loader is hidden
+            music.play().then(() => {
+                musicStarted = true;
+                if(musicIcon) {
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.remove('fa-music');
+                    musicIcon.classList.add('fa-pause');
+                    musicIcon.classList.add('spinning');
+                }
+
+                // Fade in volume from 0 to 1 over 3 seconds
+                const fadeDuration = 3000; // ms
+                const steps = 30;
+                const stepTime = fadeDuration / steps;
+                const volumeStep = 1 / steps;
+                let currentStep = 0;
+                const fadeInterval = setInterval(() => {
+                    currentStep++;
+                    music.volume = Math.min(1, currentStep * volumeStep);
+                    if (currentStep >= steps) clearInterval(fadeInterval);
+                }, stepTime);
+            }).catch(e => {
+                console.log("Browser blocked autoplay after loader. Waiting for user interaction...", e);
+            });
+        }
+    }
+
     setTimeout(function() {
         const loader = document.getElementById('globalLoader');
         if (loader) {
             loader.classList.add('hidden');
         }
+        // As soon as loader hides, forcefully try to play the music unmuted
+        forcePlayMusic();
     }, 5000);
 
-    // Request fullscreen on the very first touch/click anywhere on the page
-    function enterFullscreen() {
+    // If browser blocked the autoplay above, fallback to play on first interaction
+    function firstInteractionFallback() {
+        if (!musicStarted) {
+            forcePlayMusic();
+        }
+        
         const docElm = document.documentElement;
         if (docElm.requestFullscreen) {
             docElm.requestFullscreen().catch(err => console.log(err));
@@ -579,8 +584,9 @@ mengingat (kebesaran Allah)"
             docElm.msRequestFullscreen().catch(err => console.log(err));
         }
     }
-    document.addEventListener('click', enterFullscreen, { once: true });
-    document.addEventListener('touchstart', enterFullscreen, { once: true });
+
+    document.addEventListener('click', firstInteractionFallback, { once: true });
+    document.addEventListener('touchstart', firstInteractionFallback, { once: true });
 
     // Copy to Clipboard Functionality
     function copyText(elementId, btnElement) {

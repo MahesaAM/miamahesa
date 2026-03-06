@@ -25,6 +25,15 @@
 }
 
 body,
+h1 {
+    margin-block-start: 0;
+    margin-block-end:  0;
+}
+h2 {
+    margin-block-start: 0;
+    margin-block-end:  0;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -414,7 +423,6 @@ body {
     font-family: 'Recoleta', var(--font-serif);
     font-size: 0.9rem;
     letter-spacing: 3px;
-    margin-bottom: 1rem;
     text-transform: uppercase;
 }
 
@@ -643,7 +651,7 @@ section {
 
 .couple-hero-image {
     width: 100%;
-    aspect-ratio: 10 / 7; /* Same as original foto1.png (1204x840) */
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 8px 8px 0 0;
 }
@@ -946,7 +954,7 @@ section {
     background-color: #eedcd3;
     border: 1px solid #301E11;
     border-radius: 40px;
-    padding: 3.5rem 1.5rem;
+    padding: 3.5rem 1.5rem 5rem 1.5rem; /* Increased bottom padding to 5rem to balance with top */
     width: 85%;
     max-width: 400px;
     text-align: center;
@@ -971,7 +979,7 @@ section {
 .event-day {
     display: block;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 2.2rem;
     letter-spacing: 2px;
 }
 
@@ -986,7 +994,7 @@ section {
 .event-month-year {
     display: block;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 2.3rem;
 }
 
 .event-details-block {
@@ -1002,7 +1010,7 @@ section {
 
 .event-details-block .bold-text {
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     margin: 0.5rem 0 0.2rem 0;
 }
 
