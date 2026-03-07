@@ -581,14 +581,15 @@ mengingat (kebesaran Allah)"
         }
     }
 
-    setTimeout(function() {
+    // Wait until all resources (images, fonts, audio) are fully loaded
+    window.addEventListener('load', function() {
         const loader = document.getElementById('globalLoader');
         if (loader) {
             loader.classList.add('hidden');
         }
         // As soon as loader hides, forcefully try to play the music unmuted
         forcePlayMusic();
-    }, 5000);
+    });
 
     // If browser blocked the autoplay above, fallback to play on first interaction
     function firstInteractionFallback() {
