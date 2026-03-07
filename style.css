@@ -152,7 +152,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-image: url("assets/bg.png");
+  background-image: url("assets/bg.webp");
   background-color: #fce9dc;
   background-size: cover;
   background-position: center;
@@ -354,7 +354,7 @@ body {
     width: 100%;
     height: 100vh;
     overflow-y: auto;
-    background-image: url("assets/background.png"); /* Consistent background */
+    background-image: url("assets/background.webp"); /* Consistent background */
     background-color: #fce9dc;
     background-size: cover;
     background-position: center;
@@ -809,7 +809,7 @@ section {
 /* Countdown Section */
 .countdown-wrapper {
     background-color: #301E11; /* Dark Maroon based on user request */
-    background-image: url('assets/background.png');
+    background-image: url('assets/background.webp');
     background-repeat: repeat;
     background-size: cover;
     background-position: center;
@@ -915,7 +915,7 @@ section {
 .events-wrapper {
     position: relative;
     background-color: #301E11; /* Maroon background like the countdown section */
-    background-image: url('assets/background.png');
+    background-image: url('assets/background.webp');
     background-repeat: repeat;
     background-size: cover;
     background-position: center;
@@ -1261,7 +1261,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('assets/background2.png');
+    background-image: url('assets/background2.webp');
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -1838,7 +1838,7 @@ section {
    ===================== */
 .closing-section {
     position: relative;
-    background-image: url('assets/background.png');
+    background-image: url('assets/background.webp');
     background-color: #301E11;
     background-size: cover;
     background-position: center;
