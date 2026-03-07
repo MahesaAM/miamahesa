@@ -164,7 +164,7 @@ mengingat (kebesaran Allah)"
             <div class="countdown-item"><span id="seconds">00</span><small>Detik</small></div>
           </div>
 
-          <a href="#" class="save-date-btn"><i class="far fa-calendar-alt"></i> Save the Date</a>
+          <a href="#" class="save-date-btn" onclick="saveTheDate(event)"><i class="far fa-calendar-alt"></i> Save the Date</a>
         </div>
 
 
@@ -581,6 +581,20 @@ mengingat (kebesaran Allah)"
                 console.log("Browser blocked autoplay after loader. Waiting for user interaction...", e);
             });
         }
+    }
+
+    // Save the Date Functionality (Google Calendar)
+    function saveTheDate(e) {
+        if(e) e.preventDefault();
+        
+        const title = encodeURIComponent("Pernikahan Mia & Mahesa");
+        const dates = "20260403T020000Z/20260403T140000Z";
+        const details = encodeURIComponent("Kehadiran serta doa restu Bapak/Ibu/Saudara/i sangat berarti bagi kami.\n\nAkad Nikah: 09.00 WIB - Selesai\nResepsi: 13.00 - 21.00 WIB");
+        const location = encodeURIComponent("Gang Gedung NU RT.07 RW.01, Penggaron Lor, Genuk, Semarang");
+        
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
+        
+        window.open(googleCalendarUrl, '_blank');
     }
 
     // Wait until all resources (images, fonts, audio) are fully loaded
