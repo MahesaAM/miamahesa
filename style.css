@@ -777,8 +777,18 @@ section {
 }
 
 .parents-name {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: #301E11;
+    white-space: nowrap;
+    margin: 5px 0 2px 0; /* Tight bottom margin */
+    font-weight: 500;
+}
+
+.parents-address {
+    font-size: 0.7rem;
+    color: #4A3424; /* Slightly lighter/muted brown */
+    white-space: nowrap;
+    margin: 0 0 1rem 0; /* More space before the IG handle */
 }
 
 .ig-handle {
