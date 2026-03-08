@@ -245,6 +245,11 @@
 
         <form class="guest-form" id="guestForm">
             <input type="text" id="guestName" class="guest-input" placeholder="Nama Tamu (contoh: Budi Setiawan)" required>
+            <select id="guestSession" class="guest-input" required>
+                <option value="" disabled selected>Pilih Sesi</option>
+                <option value="Sesi 1 (13.00-15.00 WIB)">Sesi 1 (13.00-15.00 WIB)</option>
+                <option value="Sesi 2 (18.00-21.00 WIB)">Sesi 2 (18.00-21.00 WIB)</option>
+            </select>
             <button type="submit" class="guest-btn" id="submitBtn">
                 <i class="fas fa-plus"></i> Tambah Tamu
             </button>
@@ -257,7 +262,8 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th width="45%">Nama Tamu & Link Undangan</th>
+                        <th width="30%">Nama Tamu & Link Undangan</th>
+                        <th width="15%">Sesi</th>
                         <th width="20%">Status Kehadiran</th>
                         <th width="20%">Waktu Dibuat</th>
                         <th width="10%">Aksi</th>
@@ -290,12 +296,16 @@
         }
         
         // Helper: Generate Unique Link
-        function generateLink(name) {
+        function generateLink(name, session) {
             // Encode the name so it can be passed in URL (e.g. Budi Setiawan -> Budi%20Setiawan)
             const encodedName = encodeURIComponent(name);
+            let sessionParam = '';
+            if (session) {
+                sessionParam = `&sesi=${encodeURIComponent(session)}`;
+            }
             // Replace with your actual domain later
             const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
-            return `${baseUrl}?to=${encodedName}`;
+            return `${baseUrl}?to=${encodedName}${sessionParam}`;
         }
 
         // Copy Link Function
@@ -346,7 +356,7 @@
                     }
                     
                     const copyId = `link_${guest.id}`;
-                    const invLink = generateLink(guest.name);
+                    const invLink = generateLink(guest.name, guest.session);
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
@@ -360,6 +370,7 @@
                                 </button>
                             </div>
                         </td>
+                        <td><strong>${guest.session || '-'}</strong></td>
                         <td>${badgeHTML}</td>
                         <td>${formatDate(guest.created_at)}</td>
                         <td>
@@ -381,7 +392,8 @@
         guestForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = guestNameInput.value.trim();
-            if (!name) return;
+            const session = document.getElementById('guestSession').value;
+            if (!name || !session) return;
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
@@ -392,6 +404,7 @@
                     .insert([
                         { 
                             name: name,
+                            session: session,
                             attendance_status: 'Pending' // Default status before they confirm
                         }
                     ]);
@@ -399,6 +412,7 @@
                 if (error) throw error;
 
                 guestNameInput.value = '';
+                document.getElementById('guestSession').value = '';
                 await fetchGuests(); // Refresh table
 
             } catch (error) {
