@@ -331,6 +331,18 @@ body {
   .couple-names {
     font-size: 2.5rem;
   }
+
+  .profile-name {
+    font-size: 4.5vw;
+  }
+
+  .parents-name {
+    font-size: 3vw; 
+  }
+
+  .parents-address {
+    font-size: 2.5vw;
+  }
 }
 
 /* The default landing cover before opening the invitation */
@@ -774,6 +786,7 @@ section {
     font-family: var(--font-serif);
     font-weight: bold;
     margin-bottom: 0.5rem;
+    white-space: nowrap;
 }
 
 .parents-name {
