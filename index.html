@@ -886,40 +886,59 @@ mengingat (kebesaran Allah)"
     window.addEventListener('DOMContentLoaded', () => {
         fetchWishes();
         
-        // --- Populate Guest Name from URL ---
+        // --- Fetch & Populate Guest Info from URL ID ---
         const urlParams = new URLSearchParams(window.location.search);
-        const guestNameParam = urlParams.get('to');
-        if (guestNameParam) {
-            // 1. Fill Cover Page Name
+        const guestIdParam = urlParams.get('to');
+        
+        if (guestIdParam) {
             const displayElement = document.getElementById('guestNameDisplay');
-            if (displayElement) {
-                displayElement.textContent = guestNameParam;
-                
-                // Cek Parameter Sesi
-                const sessionParam = urlParams.get('sesi');
-                if (sessionParam && guestNameParam.toUpperCase() !== "TAMU") {
-                    const sessionDiv = document.createElement('div');
-                    sessionDiv.textContent = sessionParam;
-                    sessionDiv.style.color = '#301E11';
-                    sessionDiv.style.fontSize = '1.1rem';
-                    sessionDiv.style.marginTop = '6px';
-                    sessionDiv.style.fontWeight = 'normal';
-                    sessionDiv.style.fontFamily = 'var(--font-sans)';
-                    
-                    // Insert tepat di bawah nama tamu
-                    displayElement.parentNode.insertBefore(sessionDiv, displayElement.nextSibling);
-                }
-            }
-            
-            // 2. Auto-fill form input "Nama Anda"
             const nameInput = document.getElementById('wishName');
-            if (nameInput) {
-                // Jika nama tamu adalah "TAMU" (undangan general), kosongkan input formnya
-                if (guestNameParam.toUpperCase() === "TAMU") {
-                    nameInput.value = "";
-                } else {
-                    nameInput.value = guestNameParam;
+            
+            // Format Khusus Tamu Umum (Tamu tanpa sesi / nama spesifik)
+            if (guestIdParam.toUpperCase() === "TAMU") {
+                if (displayElement) displayElement.textContent = "TAMU";
+                if (nameInput) nameInput.value = "";
+            } else {
+                // Fetch nama asli dan sesi berdasarkan ID unik ini
+                if (displayElement) {
+                    displayElement.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 1rem; color: #8C6A5D;"></i>'; // Spinner sementara nama dicari
                 }
+                
+                supabaseClient
+                    .from('guest_list')
+                    .select('name, session')
+                    .eq('id', guestIdParam)
+                    .single()
+                    .then(({ data, error }) => {
+                        if (error || !data) {
+                            console.warn("Guest ID tidak ditemukan:", error);
+                            if (displayElement) displayElement.textContent = "Tamu Terhormat";
+                        } else {
+                            // Tampilkan nama asli di cover
+                            if (displayElement) {
+                                displayElement.textContent = data.name;
+                                
+                                // Tampilkan Sesi di bawah nama 
+                                if (data.session) {
+                                    const sessionDiv = document.createElement('div');
+                                    sessionDiv.textContent = data.session;
+                                    sessionDiv.style.color = '#301E11';
+                                    sessionDiv.style.fontSize = '1.1rem';
+                                    sessionDiv.style.marginTop = '6px';
+                                    sessionDiv.style.fontWeight = 'normal';
+                                    sessionDiv.style.fontFamily = 'var(--font-sans)';
+                                    
+                                    // Insert tepat di bawah nama tamu
+                                    displayElement.parentNode.insertBefore(sessionDiv, displayElement.nextSibling);
+                                }
+                            }
+                            
+                            // Isi otomatis di form Best Wishes
+                            if (nameInput) {
+                                nameInput.value = data.name;
+                            }
+                        }
+                    });
             }
         }
     });

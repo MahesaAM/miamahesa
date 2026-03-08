@@ -265,7 +265,6 @@
                         <th width="30%">Nama Tamu & Link Undangan</th>
                         <th width="15%">Sesi</th>
                         <th width="20%">Status Kehadiran</th>
-                        <th width="20%">Waktu Dibuat</th>
                         <th width="10%">Aksi</th>
                     </tr>
                 </thead>
@@ -295,17 +294,21 @@
             return new Date(dateString).toLocaleDateString('id-ID', options);
         }
         
-        // Helper: Generate Unique Link
-        function generateLink(name, session) {
-            // Encode the name so it can be passed in URL (e.g. Budi Setiawan -> Budi%20Setiawan)
-            const encodedName = encodeURIComponent(name);
-            let sessionParam = '';
-            if (session) {
-                sessionParam = `&sesi=${encodeURIComponent(session)}`;
-            }
+        // Helper: Generate Unique Link using ID instead of Name
+        function generateLink(id) {
             // Replace with your actual domain later
             const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
-            return `${baseUrl}?to=${encodedName}${sessionParam}`;
+            return `${baseUrl}?to=${id}`;
+        }
+        
+        // Helper: Generate 5-character Random ID 
+        function generateShortId() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < 5; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
         }
 
         // Copy Link Function
@@ -356,7 +359,7 @@
                     }
                     
                     const copyId = `link_${guest.id}`;
-                    const invLink = generateLink(guest.name, guest.session);
+                    const invLink = generateLink(guest.id);
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
@@ -372,7 +375,6 @@
                         </td>
                         <td><strong>${guest.session || '-'}</strong></td>
                         <td>${badgeHTML}</td>
-                        <td>${formatDate(guest.created_at)}</td>
                         <td>
                             <button class="action-btn" onclick="deleteGuest('${guest.id}', '${guest.name}')" title="Hapus Tamu">
                                 <i class="fas fa-trash"></i>
@@ -399,10 +401,12 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
 
             try {
+                const shortId = generateShortId();
                 const { data, error } = await supabaseClient
                     .from('guest_list')
                     .insert([
                         { 
+                            id: shortId,
                             name: name,
                             session: session,
                             attendance_status: 'Pending' // Default status before they confirm
@@ -417,7 +421,7 @@
 
             } catch (error) {
                 console.error('Error adding guest:', error);
-                alert('Gagal menambahkan tamu.');
+                alert(`Gagal menambahkan tamu. Pesan Error: ${error.message || error.details || error.hint || 'Koneksi bermasalah'}`);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-plus"></i> Tambah Tamu';
