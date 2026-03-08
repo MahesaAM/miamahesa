@@ -189,6 +189,53 @@
             font-size: 0.8rem;
             cursor: pointer;
         }
+
+        /* Responsive Improvements */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .admin-container {
+                padding: 15px;
+            }
+
+            .guest-form {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .guest-input, .guest-btn {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .link-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .copy-link-btn {
+                width: 100%;
+                padding: 8px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -205,20 +252,22 @@
 
         <div id="loader">Memuat daftar tamu...</div>
 
-        <table id="guestTable" style="display: none;">
-            <thead>
-                <tr>
-                    <th width="5%">No</th>
-                    <th width="45%">Nama Tamu & Link Undangan</th>
-                    <th width="20%">Status Kehadiran</th>
-                    <th width="20%">Waktu Dibuat</th>
-                    <th width="10%">Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="guestTableBody">
-                <!-- Rows will be added here via JS -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="guestTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th width="5%">No</th>
+                        <th width="45%">Nama Tamu & Link Undangan</th>
+                        <th width="20%">Status Kehadiran</th>
+                        <th width="20%">Waktu Dibuat</th>
+                        <th width="10%">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="guestTableBody">
+                    <!-- Rows will be added here via JS -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
