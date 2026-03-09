@@ -1198,8 +1198,19 @@ section {
     bottom: 20px;
     left: 4px; /* Center with the dots */
     width: 1px;
-    background-color: #301E11; /* Track color */
+    background-color: #d8c6b8; /* Default light tan track color */
     z-index: 1;
+}
+
+.timeline-track-fill {
+    position: absolute;
+    top: 0;
+    left: -1px; /* Align slightly off base line if 1px width */
+    width: 3px;
+    height: 0%; /* Dynamic fill */
+    background-color: #301E11; /* Dark brown active fill color */
+    z-index: 2;
+    transition: height 0.1s ease-out; /* Smooth follow behind scroll */
 }
 
 .timeline-item {
@@ -1220,6 +1231,7 @@ section {
     height: 20px;
     border-radius: 50%;
     z-index: 3;
+    transition: background-color 0.4s ease, width 0.4s ease, height 0.4s ease, left 0.4s ease, top 0.4s ease;
 }
 
 .dot-maroon {
@@ -1239,6 +1251,7 @@ section {
     padding: 2rem 1.5rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     text-align: left;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .card-maroon {

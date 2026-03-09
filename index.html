@@ -271,12 +271,14 @@ mengingat (kebesaran Allah)"
         </div>
 
         <div class="timeline-container">
-          <div class="timeline-track"></div>
+          <div class="timeline-track">
+            <div class="timeline-track-fill"></div>
+          </div>
 
           <!-- Event 1: First Met -->
           <div class="timeline-item">
-            <div class="timeline-dot dot-maroon"></div>
-            <div class="timeline-content card-maroon">
+            <div class="timeline-dot dot-tan"></div>
+            <div class="timeline-content card-tan">
               <span class="timeline-month">Juli 2024</span>
               <h3 class="timeline-heading">First Met</h3>
               <p class="timeline-text">Cerita kami bermula dari sebuah perkenalan sederhana di dunia maya. Namun sejak percakapan pertama, ada rasa yang sulit dijelaskan, seolah dua manusia yang begitu serupa akhirnya saling menemukan. Kami berbagi kegemaran yang sama terhadap film, teknologi, pop culture, dan rasa ingin tau tentang cara dunia bekerja. Setiap obrolan terasa seperti bercermin pada versi diri kami sendiri. Semuanya mengalir begitu alami hingga tanpa disadari tumbuh keyakinan bahwa ini bukan sekadar kebetulan, melainkan pertemuan dua jiwa dengan frekuensi yang sama. Hingga beberapa minggu kemudian, kami memutuskan untuk bertemu untuk pertama kalinya, sebuah pertemuan hangat yang menjadi awal dari kisah yang kini membawa kami melangkah menuju babak baru dalam hidup kami.</p>
@@ -1148,6 +1150,94 @@ mengingat (kebesaran Allah)"
     });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // =====================
+    // Timeline Scroll Animation
+    // =====================
+    const timelineContainer = document.querySelector('.timeline-container');
+    const timelineTrackFill = document.querySelector('.timeline-track-fill');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    if (timelineContainer && timelineTrackFill && timelineItems.length > 0) {
+      scrollContainer.addEventListener('scroll', () => {
+        // Calculate the bounding box of the timeline container relative to the viewport
+        const containerRect = timelineContainer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Let's say the "active line" is at the middle of the screen
+        const triggerLine = viewportHeight / 2;
+
+        // If the container is above the trigger line but not yet completely scrolled past it
+        if (containerRect.top < triggerLine && containerRect.bottom > 0) {
+          // Calculate how far the trigger line has penetrated the container
+          const scrolledPast = triggerLine - containerRect.top;
+          
+          // Max height is the total height of the container
+          const totalHeight = containerRect.height;
+          
+          // Calculate percentage fill
+          let percentage = (scrolledPast / totalHeight) * 100;
+          
+          // Clamp between 0 and 100
+          percentage = Math.max(0, Math.min(100, percentage));
+          timelineTrackFill.style.height = `${percentage}%`;
+
+          // Now determine which items should be active based on the fill line
+          const fillAbsoluteY = containerRect.top + scrolledPast;
+          let activeIndex = -1;
+
+          // Find the last item that the line has reached
+          timelineItems.forEach((item, index) => {
+            const itemRect = item.getBoundingClientRect();
+            // Adjust the activation point to be slightly above the item's top so it activates right as the line hits it
+            const itemActivePoint = itemRect.top + 20;
+            if (fillAbsoluteY >= itemActivePoint) {
+              activeIndex = index;
+            }
+          });
+
+          // Apply maroon class only to the active index, tan to all others
+          timelineItems.forEach((item, index) => {
+            const dot = item.querySelector('.timeline-dot');
+            const card = item.querySelector('.timeline-content');
+
+            if (index === activeIndex) {
+              dot.classList.remove('dot-tan');
+              dot.classList.add('dot-maroon');
+              card.classList.remove('card-tan');
+              card.classList.add('card-maroon');
+            } else {
+              dot.classList.remove('dot-maroon');
+              dot.classList.add('dot-tan');
+              card.classList.remove('card-maroon');
+              card.classList.add('card-tan');
+            }
+          });
+        } else if (containerRect.top >= triggerLine) {
+          // Container is completely below the trigger line
+          timelineTrackFill.style.height = `0%`;
+          timelineItems.forEach(item => {
+            const dot = item.querySelector('.timeline-dot');
+            const card = item.querySelector('.timeline-content');
+            dot.classList.remove('dot-maroon');
+            dot.classList.add('dot-tan');
+            card.classList.remove('card-maroon');
+            card.classList.add('card-tan');
+          });
+        } else if (containerRect.bottom <= triggerLine) {
+          // Container is completely above the trigger line
+          timelineTrackFill.style.height = `100%`;
+          timelineItems.forEach(item => {
+            const dot = item.querySelector('.timeline-dot');
+            const card = item.querySelector('.timeline-content');
+            dot.classList.remove('dot-tan');
+            dot.classList.add('dot-maroon');
+            card.classList.remove('card-tan');
+            card.classList.add('card-maroon');
+          });
+        }
+      });
+    }
 
   </script>
 </body>
