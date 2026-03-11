@@ -311,12 +311,51 @@
             return result;
         }
 
-        // Copy Link Function
-        window.copyInvitationLink = function(inputId, btn) {
+        // Copy Link Function with formal invitation message
+        window.copyInvitationLink = function(inputId, btn, guestName, guestSession) {
             const input = document.getElementById(inputId);
-            input.select();
-            input.setSelectionRange(0, 99999); // For mobile devices
+            const invLink = input.value;
+            
+            // Format session time correctly based on selected option
+            let sessionText = "";
+            let timeText = "";
+            
+            if (guestSession.includes("Sesi 1")) {
+                sessionText = "Sesi 1";
+                timeText = "(13.00-15.00)";
+            } else if (guestSession.includes("Sesi 2")) {
+                sessionText = "Sesi 2";
+                timeText = "(18.00-21.00)";
+            } else {
+                sessionText = guestSession; // Fallback
+            }
+
+            const messageToCopy = `Halo, apa kabar??
+Semoga sehat selalu ya.
+
+Kami mau berbagi kabar bahagia nih. Melalui pesan ini, kami bermaksud mengundang ${guestName} untuk hadir di acara kami. Berikut detail singkat acaranya:
+
+📅 Tanggal: Jumat, 3 April 2026
+📍 Lokasi: Kel. Penggaron Lor Kec. Genuk, Kota Semarang
+⏰ Sesi: *${sessionText}* ${timeText}
+
+Untuk detail lengkapnya bisa dilihat di undangan digital melalui link berikut:
+${invLink}
+
+Semoga bisa hadir ya, terima kasih banyak 🙏😊`;
+
+            // Create a temporary textarea to hold the formatted message
+            var tempTextArea = document.createElement("textarea");
+            tempTextArea.value = messageToCopy;
+            document.body.appendChild(tempTextArea);
+            
+            // Select and copy
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999); // For mobile devices
             document.execCommand('copy');
+            
+            // Cleanup
+            document.body.removeChild(tempTextArea);
             
             const originalHtml = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check"></i> Disalin';
@@ -368,7 +407,7 @@
                             <strong>${guest.name}</strong>
                             <div class="link-container">
                                 <input type="text" id="${copyId}" class="link-input" value="${invLink}" readonly>
-                                <button class="copy-link-btn" onclick="copyInvitationLink('${copyId}', this)">
+                                <button class="copy-link-btn" onclick="copyInvitationLink('${copyId}', this, '${guest.name}', '${guest.session || ''}')">
                                     <i class="fas fa-copy"></i>
                                 </button>
                             </div>
