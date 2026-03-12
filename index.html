@@ -847,11 +847,15 @@ mengingat (kebesaran Allah)"
         wishSubmitBtn.innerHTML = '<i class="fas fa-spinner spinning"></i> Menyimpan...';
 
         try {
+            // Get guest ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestIdParam = urlParams.get('to') || 'TAMU';
+
             // 1. Insert wish into guest_wishes table
             const { data, error } = await supabaseClient
                 .from('guest_wishes')
                 .insert([
-                    { name: nameInput, attendance: attendanceInput, message: messageInput }
+                    { name: nameInput, attendance: attendanceInput, message: messageInput, guest_id: guestIdParam }
                 ]);
 
             if (error) throw error;

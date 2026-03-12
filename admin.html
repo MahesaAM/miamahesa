@@ -236,12 +236,62 @@
                 font-size: 1.5rem;
             }
         }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--dark-tan);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: var(--maroon);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #888;
+        }
+        .close-btn:hover { color: var(--maroon); }
     </style>
 </head>
 <body>
 
     <div class="admin-container">
-        <h1>Manajemen Buku Tamu</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--dark-tan); padding-bottom: 15px; margin-bottom: 20px;">
+            <h1 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">Manajemen Buku Tamu</h1>
+            <button class="guest-btn" onclick="openWishesModal()" style="background-color: #6a3d3a;">
+                <i class="fas fa-comments"></i> Manajemen Ucapan
+            </button>
+        </div>
 
         <form class="guest-form" id="guestForm">
             <input type="text" id="guestName" class="guest-input" placeholder="Nama Tamu (contoh: Budi Setiawan)" required>
@@ -272,6 +322,33 @@
                     <!-- Rows will be added here via JS -->
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Modal for Wishes Management -->
+    <div id="wishesAdminModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Manajemen Ucapan (Wishes)</h2>
+                <button class="close-btn" onclick="closeWishesModal()">&times;</button>
+            </div>
+            <div id="wishesLoader">Memuat ucapan...</div>
+            <div class="table-responsive">
+                <table id="wishesTable" style="display: none; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th width="5%">No</th>
+                            <th width="20%">Nama & ID</th>
+                            <th width="15%">Kehadiran</th>
+                            <th width="50%">Pesan</th>
+                            <th width="10%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wishesTableBody">
+                        <!-- Wishes content goes here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -509,6 +586,132 @@ Semoga bisa hadir ya, terima kasih banyak 🙏😊`;
 
         // Load initially
         window.addEventListener('DOMContentLoaded', fetchGuests);
+
+        // --- WISHES MANAGEMENT (ADMIN MODAL) ---
+        const wishesModal = document.getElementById('wishesAdminModal');
+        const wishesTable = document.getElementById('wishesTable');
+        const wishesTableBody = document.getElementById('wishesTableBody');
+        const wishesLoader = document.getElementById('wishesLoader');
+
+        window.openWishesModal = async function() {
+            wishesModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            await fetchAdminWishes();
+        };
+
+        window.closeWishesModal = function() {
+            wishesModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        // Close on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === wishesModal) closeWishesModal();
+        });
+
+        async function fetchAdminWishes() {
+            try {
+                wishesLoader.style.display = 'block';
+                wishesTable.style.display = 'none';
+                
+                // Fetch wishes
+                const { data: wishesData, error: wishesError } = await supabaseClient
+                    .from('guest_wishes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (wishesError) throw wishesError;
+
+                // Fetch guest list for name mapping
+                const { data: guestsData, error: guestsError } = await supabaseClient
+                    .from('guest_list')
+                    .select('id, name');
+                
+                if (guestsError) throw guestsError;
+
+                // Create ID to Name map
+                const guestMap = {};
+                if (guestsData) {
+                    guestsData.forEach(g => {
+                        guestMap[g.id] = g.name;
+                    });
+                }
+
+                wishesLoader.style.display = 'none';
+                wishesTable.style.display = 'table';
+                wishesTableBody.innerHTML = '';
+
+                if (wishesData.length === 0) {
+                    wishesTableBody.innerHTML = `<tr><td colspan="5" class="empty-state">Belum ada ucapan.</td></tr>`;
+                    return;
+                }
+
+                wishesData.forEach((wish, index) => {
+                    let badgeHTML = '';
+                    if (wish.attendance === 'Hadir') {
+                        badgeHTML = '<span class="status-badge status-hadir" style="font-size:0.75rem;">Hadir</span>';
+                    } else if (wish.attendance === 'Tidak Hadir') {
+                        badgeHTML = '<span class="status-badge status-tidak" style="font-size:0.75rem;">Tidak Hadir</span>';
+                    } else {
+                        badgeHTML = '<span class="status-badge status-pending" style="font-size:0.75rem;">-</span>';
+                    }
+
+                    // Get real guest name from Map if ID matches
+                    let guestInfo = '';
+                    if (wish.guest_id && wish.guest_id !== 'TAMU') {
+                        const realName = guestMap[wish.guest_id];
+                        if (realName) {
+                            guestInfo = `<br><small style="color:#2c7be5; font-weight:600;">${realName}</small>`;
+                        } else {
+                            guestInfo = `<br><small style="color:#666;">ID: ${wish.guest_id} (Tamu Terhapus)</small>`;
+                        }
+                    } else {
+                        guestInfo = `<br><small style="color:#999;font-style:italic;">(Tamu Publik)</small>`;
+                    }
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><strong>${wish.name}</strong> ${guestInfo}</td>
+                        <td>${badgeHTML}</td>
+                        <td>
+                            <div style="max-height: 80px; overflow-y: auto; font-size: 0.9rem; padding-right:5px;">
+                                ${wish.message}
+                            </div>
+                            <small style="color:#999; display:block; margin-top:5px;">${formatDate(wish.created_at)}</small>
+                        </td>
+                        <td>
+                            <button class="action-btn" onclick="deleteWish('${wish.id}')" title="Hapus Ucapan">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    wishesTableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error fetching wishes:', error);
+                wishesLoader.innerHTML = '<span style="color:red;">Gagal memuat daftar ucapan.</span>';
+            }
+        }
+
+        window.deleteWish = async function(id) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus ucapan ini?`)) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('guest_wishes')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+                
+                await fetchAdminWishes(); // Refresh modal table
+                
+            } catch (error) {
+                console.error('Error deleting wish:', error);
+                alert('Gagal menghapus ucapan. Pastikan Anda memiliki akses penghapusan.');
+            }
+        };
 
     </script>
 </body>
