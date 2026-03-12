@@ -311,8 +311,24 @@
             return result;
         }
 
+        // Function to only copy the Raw Link
+        window.copyRawLink = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+            
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Disalin';
+            btn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.style.backgroundColor = 'var(--maroon)';
+            }, 2000);
+        };
+
         // Copy Link Function with formal invitation message
-        window.copyInvitationLink = function(inputId, btn, guestName, guestSession) {
+        window.copyTemplateMessage = function(inputId, btn, guestName, guestSession) {
             const input = document.getElementById(inputId);
             const invLink = input.value;
             
@@ -320,14 +336,14 @@
             let sessionText = "";
             let timeText = "";
             
-            if (guestSession.includes("Sesi 1")) {
+            if (guestSession && guestSession.includes("Sesi 1")) {
                 sessionText = "Sesi 1";
                 timeText = "(13.00-15.00)";
-            } else if (guestSession.includes("Sesi 2")) {
+            } else if (guestSession && guestSession.includes("Sesi 2")) {
                 sessionText = "Sesi 2";
                 timeText = "(18.00-21.00)";
             } else {
-                sessionText = guestSession; // Fallback
+                sessionText = guestSession || ''; // Fallback
             }
 
             const messageToCopy = `Halo, apa kabar??
@@ -358,7 +374,7 @@ Semoga bisa hadir ya, terima kasih banyak 🙏😊`;
             document.body.removeChild(tempTextArea);
             
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Disalin';
+            btn.innerHTML = '<i class="fas fa-check"></i> Tersalin';
             btn.style.backgroundColor = '#28a745';
             setTimeout(() => {
                 btn.innerHTML = originalHtml;
@@ -407,8 +423,11 @@ Semoga bisa hadir ya, terima kasih banyak 🙏😊`;
                             <strong>${guest.name}</strong>
                             <div class="link-container">
                                 <input type="text" id="${copyId}" class="link-input" value="${invLink}" readonly>
-                                <button class="copy-link-btn" onclick="copyInvitationLink('${copyId}', this, '${guest.name}', '${guest.session || ''}')">
-                                    <i class="fas fa-copy"></i>
+                                <button class="copy-link-btn" onclick="copyRawLink('${copyId}', this)" title="Copy Link Aja">
+                                    <i class="fas fa-link"></i> Link
+                                </button>
+                                <button class="copy-link-btn" style="background-color: #6a3d3a;" onclick="copyTemplateMessage('${copyId}', this, '${guest.name}', '${guest.session || ''}')" title="Copy Template Pesan">
+                                    <i class="fab fa-whatsapp"></i> Pesan
                                 </button>
                             </div>
                         </td>
