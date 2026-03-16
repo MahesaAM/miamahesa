@@ -709,7 +709,7 @@ Semoga bisa hadir ya, terima kasih banyak 🙏😊`;
                 
             } catch (error) {
                 console.error('Error deleting wish:', error);
-                alert('Gagal menghapus ucapan. Pastikan Anda memiliki akses penghapusan.');
+                alert('Gagal menghapus: ' + (error.message || error.details || error.hint || 'Tidak diketahui. Periksa console/RLS Supabase.'));
             }
         };
 
